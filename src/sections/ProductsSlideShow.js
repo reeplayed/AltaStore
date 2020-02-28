@@ -69,7 +69,7 @@ const ProductsSlideShow = ({ title, type }) => {
 
     useEffect(() => {
         axios
-            .get('http://127.0.0.1:8000/api/prodlist/', { params: { filter: type } })
+            .get('/api/prodlist/', { params: { filter: type } })
             .then(res => setProd(res.data.results));
 
         window.addEventListener('resize', setScreenWidth);
