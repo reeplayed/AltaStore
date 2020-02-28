@@ -69,7 +69,7 @@ const ProductsSlideShow = ({ title, type }) => {
 
     useEffect(() => {
         axios
-            .get('/api/prodlist/', { params: { filter: type } })
+            .get('http://initializer.herokuapp.com/api/prodlist/', { params: { filter: type } })
             .then(res => setProd(res.data.results));
 
         window.addEventListener('resize', setScreenWidth);
