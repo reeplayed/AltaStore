@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import axios from '../axios';
 import { ArrowSvg, StarSvg } from '../svg/logo';
 import { addProduct } from '../actions/cartActions';
 import { connect } from 'react-redux';
@@ -11,6 +10,7 @@ import Heading from '../typography/Heading';
 import Comment from '../components/Comment';
 import Footer from '../sections/Footer';
 import posed, { PoseGroup } from 'react-pose';
+import axios, {baseURL} from '../axios';
 
 const MainContainer = styled.main`
   margin: 0 20px;
@@ -139,8 +139,7 @@ class ProductDetail extends Component {
 
       const slug = this.props.match.params.slug;
 
-      axios
-          .get('http://127.0.0.1:8000/product/' + slug)
+      axios.get('/product/' + slug)
           .then(({ data }) => {
               this.setState({
                   product: data.product_info,
@@ -172,7 +171,7 @@ class ProductDetail extends Component {
               <MainContainer>
                   <SlideShowContent>
                       <MainImgWrapper>
-                          <MainImg src={'http://127.0.0.1:8000' + this.state.mainImg} />
+                          {/* <MainImg src={baseURL + this.state.mainImg} /> */}
                       </MainImgWrapper>
 
                       <SlideShowNavigation>
@@ -182,7 +181,7 @@ class ProductDetail extends Component {
                           {this.state.images.map(img => (
                               <SmallImg
                                   onClick={() => this.setState({ mainImg: img })}
-                                  src={'http://127.0.0.1:8000' + img}
+                                  src={baseURL+img}
                               />
                           ))}
                           <StyledButton>

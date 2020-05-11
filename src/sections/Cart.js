@@ -8,6 +8,7 @@ import { addProduct, removeProduct } from '../actions/cartActions';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Modal from '../components/Modal';
+import {baseURL} from '../axios';
 
 const CartContainerPose = posed.div({
     enter: {
@@ -129,7 +130,7 @@ const RemoveButton = styled.button`
 const Cart = props => {
     const CartList = props.cart.products.map(prod => (
         <ProductContainer>
-            <Image src={'http://127.0.0.1:8000' + prod.product.image} />
+            <Image src={baseURL + prod.product.image} />
             <TitleAndPrice>
                 <Title>{prod.product.name}</Title>
                 <Price>{prod.product.price} $</Price>

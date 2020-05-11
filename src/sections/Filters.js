@@ -77,7 +77,7 @@ const Filters = props => {
 
     const submitFilterHandler = () => {
         axios
-            .get('productfilterlist/', {
+            .get('/productfilterlist/', {
                 params: {
                     category: category,
                     price_from: price[0],
@@ -114,7 +114,7 @@ const Filters = props => {
     };
     const paginationHandler = page => {
         axios
-            .get('productfilterlist/', {
+            .get('/productfilterlist/', {
                 params: {
                     category: category,
                     price_from: price[0],
@@ -165,7 +165,7 @@ const Filters = props => {
                     setFlag(!flag);
 
                     axios
-                        .get('productfilterlist/', { params: data.clean_params })
+                        .get('/productfilterlist/', { params: data.clean_params })
                         .then(res => {
                             setProducts(res.data.results);
                             setTotalPages(res.data.total_pages);
@@ -175,7 +175,7 @@ const Filters = props => {
                 .catch(() => props.history.push('/404'));
         } else {
             axios
-                .get('productfilterlist/', { params: { category: category } })
+                .get('/productfilterlist/', { params: { category: category } })
                 .then(res => {
                     setTotalPages(res.data.total_pages);
                     setProducts(res.data.results);
@@ -183,7 +183,7 @@ const Filters = props => {
                 })
                 .catch(() => props.history.push('/404'));
             axios
-                .get('filtersparams/', { params: { filterType: category } })
+                .get('/filtersparams/', { params: { filterType: category } })
                 .then(res => {
                     setPriceRange(res.data.price);
                     setPrice(res.data.price);

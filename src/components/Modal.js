@@ -5,6 +5,7 @@ import CustomButton from './CustomButton';
 import { connect } from 'react-redux';
 import axios from '../axios';
 import { clearCart } from '../actions/cartActions';
+import StyledLink from '../helpers/StyledLink';
 
 const StyledButton = styled.button`
   cursor: pointer;
@@ -48,7 +49,7 @@ function SimpleModal ({ button, auth, cart, clearCart }) {
             quantity: prod.quantity
         }));
         axios
-            .post('http://127.0.0.1:8000/buy_products/', { products: data })
+            .post('/buy_products/', { products: data })
             .then(() => clearCart())
             .catch();
     };
@@ -85,7 +86,9 @@ function SimpleModal ({ button, auth, cart, clearCart }) {
                                 </CustomButton>
                             </>
                         ) : (
-                            <CustomButton>Zaloguj</CustomButton>
+                            <StyledLink to='/login'>
+                                <CustomButton>Zaloguj</CustomButton>
+                            </StyledLink>
                         )}
                     </div>
                 </Content>

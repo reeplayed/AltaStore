@@ -24,13 +24,12 @@ class App extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={MainPage} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/shop" component={MainPage} />
-                    <Route path="/404" component={Page404} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/shop" component={MainPage} />
+                    <Route exact path="/404" component={Page404} />
                     <Route exact path="/product/:slug" component={ProductDetail} />
-                    <Route path="/:category" component={ProductList} />
+                    <Route exact path="/:category" component={ProductList} />
                 </Switch>
                 <GlobalStyles />
             </Router>

@@ -4,7 +4,6 @@ import NavBar from '../sections/NavBar';
 import ProductsSlideShow from '../sections/ProductsSlideShow';
 import Info from '../sections/Info';
 import Footer from '../sections/Footer';
-import SimpleSnackbar from '../components/Snackbar';
 
 class MainPage extends Component {
     render () {
@@ -16,7 +15,7 @@ class MainPage extends Component {
                 <Info />
                 <ProductsSlideShow title="Najlepiej ocenione produkty" type="rating" />
                 <Footer />
-                <SimpleSnackbar />
+               
             </>
         );
     }

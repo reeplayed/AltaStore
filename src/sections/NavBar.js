@@ -14,6 +14,7 @@ import NavItem from '../components/NavItem';
 import { StyledLink } from '../components/NavItem';
 import { logoutUser } from '../actions/authActions';
 import { clearCart } from '../actions/cartActions';
+import {baseURL} from '../axios';
 
 const NavBarContainer = styled.nav`
   position: fixed;
@@ -385,7 +386,7 @@ const NavBar = props => {
                         <>
                             <ProfileInfo>
                                 <ProfileImage
-                                    src={'http://127.0.0.1:8000' + props.auth.image}
+                                    src={baseURL + props.auth.image}
                                 />
                                 <NamesWrapper>
                                     <ProfileName>{props.auth.username}</ProfileName>

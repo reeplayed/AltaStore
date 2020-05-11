@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Rating from '@material-ui/lab/Rating';
+import {baseURL} from '../axios';
 
 const CommentContent = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ const Comment = ({ profile_img, username, comment, rate }) => {
         <>
             <CommentContent>
                 <ImgWrapper>
-                    <ProfileImg src={'http://127.0.0.1:8000' + profile_img} />
+                    <ProfileImg src={baseURL + profile_img} />
                 </ImgWrapper>
                 <CommentInfo>
                     <Username>

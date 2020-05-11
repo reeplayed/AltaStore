@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const baseURL = 'http://initializer.herokuapp.com';
+
 export default axios.create({
-    baseURL: 'http://initializer.herokuapp.com'
+    baseURL: baseURL
 });

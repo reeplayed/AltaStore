@@ -59,7 +59,7 @@ const AddComment = ({ id, update }) => {
         }
 
         axios
-            .post('http://127.0.0.1:8000/add_comment/', { comment, rate, id })
+            .post('/add_comment/', { comment, rate, id })
             .then(({ data }) => update(data.new_comment))
             .catch(err => console.log(err));
     };

@@ -38,15 +38,6 @@ const CustomSlider = withStyles({
 })(Slider);
 
 const PriceFilterComponent = category => {
-    // useEffect(()=>{
-    //     axios.get('/filtersparams/',{params:{filterType: category}})
-    //         .then(res => {
-    //             setRange(res.data);
-    //             setValue(res.data)
-    //         })
-    //         .catch(error => console.log(error))
-    //
-    // },[category]);
 
     const [range, setRange] = useState([]);
     const [value, setValue] = useState([]);

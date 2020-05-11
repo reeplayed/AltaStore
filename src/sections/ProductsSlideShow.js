@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Heading from '../typography/Heading';
 import Content from '../helpers/Content';
 import ProductCard from '../components/ProductCard';
-import axios from 'axios';
+import axios from '../axios';
 import { useState, useEffect } from 'react';
 import { Arrow } from '../svg/logo';
 
@@ -69,10 +69,14 @@ const ProductsSlideShow = ({ title, type }) => {
 
     useEffect(() => {
         axios
-            .get('http://initializer.herokuapp.com/api/prodlist/', { params: { filter: type } })
+            .get('/api/prodlist/', { params: { filter: type } })
             .then(res => setProd(res.data.results));
-
-        window.addEventListener('resize', setScreenWidth);
+            
+        setScreen(
+            window.innerWidth > 1330 ? 4 : window.innerWidth > 900 ? 3 : window.innerWidth > 650 ? 2 : 1
+        );
+        
+            window.addEventListener('resize', setScreenWidth);
 
         return () => {
             window.removeEventListener('resize', setScreenWidth);
