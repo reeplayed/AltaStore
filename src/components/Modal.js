@@ -18,6 +18,11 @@ const StyledButton = styled.button`
   color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  @media (max-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.tabPort}) {
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.xs};
+    padding: 5px 10px;
+  }
 `;
 const Content = styled.div`
   background: ${({ theme }) => theme.colors.white};

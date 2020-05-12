@@ -27,8 +27,8 @@ export default {
         xs: '1.25rem',
         s: '1.4rem',
         sm: '1.6rem',
-        md: '2rem',
-        lg: '2.56rem',
+        md: '2.3rem',
+        lg: '3rem',
         xl: '3.2rem',
         xxl: '3.84rem',
         xxxl: '6.4rem',
@@ -55,6 +55,7 @@ export default {
         gi: `${spacingUnit * 12}px`
     },
     breakpoints: {
+        mobile: '30em',
         tabPort: '37.5em',
         tabLand: '63.75em',
         desktop: '75em',

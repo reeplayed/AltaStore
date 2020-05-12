@@ -5,7 +5,8 @@ import posed from 'react-pose';
 import Rating from '@material-ui/lab/Rating';
 
 const Img = styled.img`
-  width: 100%;
+max-width: 100%;
+height: auto;
   transition: all 0.5s;
   object-fit: cover;
 `;

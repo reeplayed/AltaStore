@@ -38,25 +38,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     background:${({ theme: { colors } }) => colors.body};
 
-    line-height: 1.25;
-    font-kerning: normal;
+    // line-height: 1.25;
+    // font-kerning: normal;
   }
-//  ::selection {
-//    background: ${({ theme: { colors } }) => colors.primary};
-//    color: ${({ theme: { colors } }) => colors.white};
-//  }
-//  ::-webkit-scrollbar {
-//    height: 16px;
-//    width: 16px;
-//    background: ${({ theme: { colors } }) => colors.light};
-//}
-//::-webkit-scrollbar-thumb {
-//    background: ${({ theme: { colors } }) => colors.primary};
-//    -webkit-border-radius: 1ex;
-//    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
-//}
-//::-webkit-scrollbar-corner {
-//    background: #000;
-//`;
+`;
 
 export default GlobalStyles;

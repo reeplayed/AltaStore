@@ -26,9 +26,13 @@ const MainHeader = styled.h1`
   margin-bottom: 10px;
   white-space: nowrap;
 
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+  @media (max-width: ${({ theme: { breakpoints } }) =>
         breakpoints.tabPort}) {
-    font-size: ${({ theme: { fontSizes } }) => fontSizes.xxxl};
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.xxl};
+  }
+  @media (max-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.lg};
   }
 `;
 
@@ -39,9 +43,13 @@ const SecondaryHeader = styled.h2`
   font-family: ${({ theme }) => theme.fonts.logo};
   white-space: nowrap;
 
-  @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
+  @media (max-width: ${({ theme: { breakpoints } }) =>
         breakpoints.tabPort}) {
-    font-size: ${({ theme: { fontSizes } }) => fontSizes.xl};
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.lg};
+  }
+  @media (max-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.mobile}) {
+    font-size: ${({ theme: { fontSizes } }) => fontSizes.md};
   }
 `;
 
