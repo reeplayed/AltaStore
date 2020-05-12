@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   border-radius: 8px;
   max-width: 800px;
   overflow: hidden;
+  
 `;
 const Item = styled.div`
   position: relative;
@@ -16,13 +17,13 @@ const Item = styled.div`
   align-items: center;
   width: 200px;
   background: ${({ theme }) => theme.colors.primary};
+  
 `;
 const RadioButtonLabel = styled.label`
   color: white;
   font-size: 1.4rem;
   padding: 5px;
   width: 100%;
-
   text-align: center;
 `;
 const RadioButton = styled.input`
@@ -30,6 +31,7 @@ const RadioButton = styled.input`
     width:100%;
     position:absolute;
     opacity:0;
+    cursor: pointer;
     &:checked+${RadioButtonLabel}{
         color:${({ theme }) => theme.colors.primary};;
         background: ${({ theme }) => theme.colors.white};;

@@ -38,6 +38,10 @@ const FilterButton = styled.button`
   color: ${({ theme }) => theme.colors.primary};
   background: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.heading};
+  cursor: pointer;
+  &:hover{
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const Filters = props => {

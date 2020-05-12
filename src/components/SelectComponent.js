@@ -12,6 +12,10 @@ export const Select = styled.select`
       background-color: ${({ theme }) => theme.colors.white};
       border-radius: 8px;
       font-family:${({ theme }) => theme.fonts.heading};
+      transition: all 0.3s;
+      cursor: pointer;
+      &:hover{
+        color: ${({theme: { colors } }) => colors.primary};
       }
 `;
 export const Option = styled.option`

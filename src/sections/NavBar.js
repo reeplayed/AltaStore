@@ -367,7 +367,7 @@ const NavBar = props => {
             </HamburgerWrapper>
 
             <LogoWrapper scroll={scroll}>
-                <Link to="/shop">
+                <Link to="/">
                     <Logo />
                 </Link>
             </LogoWrapper>

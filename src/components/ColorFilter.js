@@ -22,6 +22,9 @@ const ColorButton = styled.button`
   height: 100%;
   font-family: ${({ theme }) => theme.fonts.heading};
   cursor: pointer;
+  &:hover{
+    color: ${({theme: { colors } }) => colors.primary};
+  }
 `;
 const ColorsWrapper = styled.div`
   position: absolute;
