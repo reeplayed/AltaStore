@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Heading from '../typography/Heading';
 import Content from '../helpers/Content';
 import FlexBox from '../helpers/FlexBox';
+import wysylka from  '../static/wysylka.webp';
 
 const Info1 = styled.div`
   background: red;
@@ -48,14 +49,13 @@ const Info = () => {
         Dlaczego my?
             </Heading>
             <FlexBox>
-                <Info1 url="https://ocdn.eu/pulscms-transforms/1/XDtk9kqTURBXy9iZmI4NWM5ZmYwZjEzYTZlMjYyYWQ0YjFlMWJiOWIwNC5qcGVnkpUDAMzTzReizQ1LlQLNAeAAwsOCoTAFoTEB">
+                <Info1 url={wysylka}>
                     <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Darmowa wysyłka
                     </Heading>
                     <Description>
             Zapewniamy darmową wysyłkę przy dokonaniu przedpłaty (przelewem /
-            Blikiem) za zamówienie o wartości powyżej 400zł.(Nie dotyczy
-            przesyłek zagranicznych i zamówień hurtowych)
+            Blikiem) za zamówienie o wartości powyżej 1500zł.
                     </Description>
                 </Info1>
                 <Info1 url="https://ocdn.eu/pulscms-transforms/1/XDtk9kqTURBXy9iZmI4NWM5ZmYwZjEzYTZlMjYyYWQ0YjFlMWJiOWIwNC5qcGVnkpUDAMzTzReizQ1LlQLNAeAAwsOCoTAFoTEB">
@@ -63,8 +63,7 @@ const Info = () => {
             Najlepsza jakość
                     </Heading>
                     <Description>
-            Dlaczego warto postawić na dobrą jakość mebli? Dla wielu z nas, jest
-            to czynnik wiążący. Nie chcemy ich zmieniać co rok, czy dwa lata.
+        Nie chcemy ich zmieniać co rok, czy dwa lata.
             Marzymy, aby były naszymi codziennymi i oddanymi towarzyszami,
             spełniającymi swe zadania.
                     </Description>
@@ -74,9 +73,8 @@ const Info = () => {
             Konkurencyjne ceny
                     </Heading>
                     <Description>
-            Zapewniamy darmową wysyłkę przy dokonaniu przedpłaty (przelewem /
-            Blikiem) za zamówienie o wartości powyżej 400zł.(Nie dotyczy
-            przesyłek zagranicznych i zamówień hurtowych)
+            Zapewniamy konkurencyjne ceny. Nasza firma posiada najbardziej zoptymalizowane produkty, 
+            jeżeli bierzemy pod uwagę cenę oraz jakośc.
                     </Description>
                 </Info1>
             </FlexBox>

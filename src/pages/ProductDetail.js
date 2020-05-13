@@ -171,7 +171,7 @@ class ProductDetail extends Component {
               <MainContainer>
                   <SlideShowContent>
                       <MainImgWrapper>
-                          {/* <MainImg src={baseURL + this.state.mainImg} /> */}
+                          <MainImg src={baseURL + this.state.mainImg} />
                       </MainImgWrapper>
 
                       <SlideShowNavigation>

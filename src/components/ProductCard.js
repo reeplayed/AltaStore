@@ -103,7 +103,7 @@ const ProductCard = ({ title, image, price, slug, rating }) => {
                 </ImgWrapper>
                 <CardFooter>
                     <Title>{title}</Title>
-                    <Price>{price} $</Price>
+                    <Price>{price} PLN</Price>
                     <Rating
                         name="half-rating-read"
                         value={rating}
