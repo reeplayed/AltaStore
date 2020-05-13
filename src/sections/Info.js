@@ -1,11 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import Heading from '../typography/Heading';
-import Content from '../helpers/Content';
 import FlexBox from '../helpers/FlexBox';
-import wysylka from  '../static/wysylka.webp';
+import wysylka from '../static/wysylka.webp';
+import jakosc from '../static/jakosc.jpg';
+import price from '../static/price.jpg';
 
-const Info1 = styled.div`
+const Container = styled.section`
+  padding: 2rem;
+
+
+`;
+
+const InfoContainer = styled.div`
   background: red;
   min-width: 25rem;
   flex: 1;
@@ -20,20 +27,6 @@ const Info1 = styled.div`
   padding: 4rem 2rem;
   border-radius: 5px;
 `;
-const Info2 = styled.div`
-  background: red;
-  min-width: 20rem;
-  flex: 1;
-  height: 100px;
-  margin: 10px 10px;
-`;
-const Info3 = styled.div`
-  background: red;
-  min-width: 20rem;
-  flex: 1;
-  height: 100px;
-  margin: 10px 10px;
-`;
 const Description = styled.h4`
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.white};
@@ -44,12 +37,12 @@ const Description = styled.h4`
 `;
 const Info = () => {
     return (
-        <Content padding="2rem">
+        <Container>
             <Heading margin="3rem auto" align="center" fsize="3rem">
         Dlaczego my?
             </Heading>
-            <FlexBox>
-                <Info1 url={wysylka}>
+            <FlexBox align='strech'>
+                <InfoContainer url={wysylka}>
                     <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Darmowa wysyłka
                     </Heading>
@@ -57,8 +50,8 @@ const Info = () => {
             Zapewniamy darmową wysyłkę przy dokonaniu przedpłaty (przelewem /
             Blikiem) za zamówienie o wartości powyżej 1500zł.
                     </Description>
-                </Info1>
-                <Info1 url="https://ocdn.eu/pulscms-transforms/1/XDtk9kqTURBXy9iZmI4NWM5ZmYwZjEzYTZlMjYyYWQ0YjFlMWJiOWIwNC5qcGVnkpUDAMzTzReizQ1LlQLNAeAAwsOCoTAFoTEB">
+                </InfoContainer>
+                <InfoContainer url={jakosc}>
                     <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Najlepsza jakość
                     </Heading>
@@ -67,8 +60,8 @@ const Info = () => {
             Marzymy, aby były naszymi codziennymi i oddanymi towarzyszami,
             spełniającymi swe zadania.
                     </Description>
-                </Info1>
-                <Info1 url="https://ocdn.eu/pulscms-transforms/1/XDtk9kqTURBXy9iZmI4NWM5ZmYwZjEzYTZlMjYyYWQ0YjFlMWJiOWIwNC5qcGVnkpUDAMzTzReizQ1LlQLNAeAAwsOCoTAFoTEB">
+                </InfoContainer>
+                <InfoContainer url={price}>
                     <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Konkurencyjne ceny
                     </Heading>
@@ -76,9 +69,9 @@ const Info = () => {
             Zapewniamy konkurencyjne ceny. Nasza firma posiada najbardziej zoptymalizowane produkty, 
             jeżeli bierzemy pod uwagę cenę oraz jakośc.
                     </Description>
-                </Info1>
+                </InfoContainer>
             </FlexBox>
-        </Content>
+        </Container>
     );
 };
 
