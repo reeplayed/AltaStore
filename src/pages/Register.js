@@ -98,9 +98,12 @@ class Register extends Component {
           .post('/registration/', { username, password, email })
           .then(res => {
               console.log(res);
+              this.props.history.push('/')
+              alert('Pomyślnie utworzyłeś konto.')
           })
           .catch(err => {
               console.log(err.response);
+              alert('Coś poszło nie tak...')
           });
   };
 
