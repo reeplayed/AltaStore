@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const Select = styled.select`
-      width: ${({ width }) => width};
+      width: 140px;
       height: 100%;
       border: 1px solid ${({ isFilterSet, theme: { colors } }) =>
         isFilterSet ? colors.primary : colors.shadow};
@@ -16,6 +16,9 @@ export const Select = styled.select`
       cursor: pointer;
       &:hover{
         color: ${({theme: { colors } }) => colors.primary};
+      }
+      @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+        width: 90px;
       }
 `;
 export const Option = styled.option`

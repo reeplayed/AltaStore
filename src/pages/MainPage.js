@@ -3,7 +3,7 @@ import Header from '../sections/Header';
 import NavBar from '../sections/NavBar';
 import ProductsSlideShow from '../sections/ProductsSlideShow';
 import Info from '../sections/Info';
-import Footer from '../sections/Footer';
+
 
 class MainPage extends Component {
     render () {
@@ -14,8 +14,6 @@ class MainPage extends Component {
                 <ProductsSlideShow title="Najczęściej kupywane produkty" type="sell" />
                 <Info />
                 <ProductsSlideShow title="Najlepiej ocenione produkty" type="rating" />
-                <Footer />
-               
             </>
         );
     }

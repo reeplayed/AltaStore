@@ -6,6 +6,7 @@ import _ from 'lodash';
 const Wrapper = styled.div`
   margin: 5px 5px 0 0;
   position: relative;
+  
 `;
 const ColorButton = styled.button`
   font-size: 1.2rem;
@@ -19,11 +20,17 @@ const ColorButton = styled.button`
     ${({ isFilterSet, theme: { colors } }) =>
         isFilterSet ? colors.primary : colors.shadow};
   border-radius: 8px;
-  height: 100%;
+  height: 42px;
   font-family: ${({ theme }) => theme.fonts.heading};
   cursor: pointer;
   &:hover{
     color: ${({theme: { colors } }) => colors.primary};
+  }
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    height: 33px;
+  }
+  @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+    padding: 0 13px;
   }
 `;
 const ColorsWrapper = styled.div`
@@ -35,7 +42,6 @@ const ColorsWrapper = styled.div`
   width: 100%;
   display: ${({ open }) => (open ? 'block' : 'none')};
   color: ${({ theme }) => theme.colors.primary};
-  color: ${({ open }) => (open ? 'red' : 'green')};
   border: ${({ open }) => (open ? '1px' : '0')} solid
     ${({ theme }) => theme.colors.primary};
   border-radius: 8px;
@@ -53,6 +59,7 @@ const ItemContent = styled.li`
     margin-bottom:5px;
     text-transform: capitalize;
     cursor:pointer;
+    margin: 13px 0;
 `;
 const ColorList = styled.ul`
   padding: 5px;

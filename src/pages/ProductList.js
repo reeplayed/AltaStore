@@ -9,9 +9,18 @@ const ProductListContent = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px 0;
+  @media (max-width:${({ theme })=>theme.breakpoints.desktop}){
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width:${({ theme })=>theme.breakpoints.md}){
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 const PaginationContent = styled.div`
-  margin-top: 20px;
+  margin: 40px 0 50px 0;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -22,6 +22,10 @@ const RegistrationContent = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   border-shadow: 5px 10px #888888;
   padding: 20px 40px;
+
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    padding: 10px 10px;
+  }
 `;
 
 const TextField = styled.input`
@@ -106,7 +110,7 @@ class Register extends Component {
       return (
           <>
               <NavBar />
-              <Content margin="0 15px">
+              <Content margin="0 5px">
                   <RegistrationContent>
                       <Heading margin="20px auto" align="center" fsize="3rem">
               Zarejestruj

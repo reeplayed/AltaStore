@@ -15,6 +15,10 @@ const Wrapper = styled.div`
   background: white;
   flex-direction: column;
   opacity: ${({ isFilterSet }) => (isFilterSet ? '0.4' : '1')};
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    padding: 1px 13px;
+    height: 33px;
+  }
 `;
 const RangeLabelsWrapper = styled.div`
   width: 100%;
@@ -23,6 +27,9 @@ const RangeLabelsWrapper = styled.div`
 `;
 const ValueLabel = styled.label`
   font-size: 1rem;
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    font-size: 0.8rem;
+  }
 `;
 
 const CustomSlider = withStyles({

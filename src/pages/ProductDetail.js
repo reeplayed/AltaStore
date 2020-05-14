@@ -8,12 +8,18 @@ import NavBar from '../sections/NavBar';
 import CustomButton from '../components/CustomButton';
 import Heading from '../typography/Heading';
 import Comment from '../components/Comment';
-import Footer from '../sections/Footer';
 import posed, { PoseGroup } from 'react-pose';
 import axios, {baseURL} from '../axios';
 
 const MainContainer = styled.main`
-  margin: 0 20px;
+  margin: 70px 15px 0 15px;
+  
+`;
+const Container = styled.main`
+  
+  display:flex;
+  flex-wrap: wrap;
+  align-items: strech;
 `;
 
 const ProductSection = styled.section`
@@ -39,13 +45,19 @@ const Content = styled(ContentPose)`
   background: white;
   border: 1px solid #ddd;
   border-radius: 5px;
+  height: 100%;
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
 `;
 
 const SlideShowContent = styled.section`
   max-width: 1000px;
-  flex: 1;
+  margin: 10px;
+  flex: 1 1 50%;
+  @media (max-width:${({ theme })=>theme.breakpoints.tabLand}){
+    flex: 1 1 100%;
+
+  }
 `;
 const MainImgWrapper = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -79,6 +91,7 @@ const SmallImg = styled.img`
   width: 10px;
   flex: 1;
   margin: 15px 5px;
+  cursor: pointer;
 `;
 const StyledButton = styled.button`
   margin: 0;
@@ -87,15 +100,20 @@ const StyledButton = styled.button`
   background: transparent;
 `;
 const DescriptionContent = styled.section`
-  margin: 0 0 0 20px;
-  max-width: 750px;
-  padding: 30px 30px;
+  
+  flex: 1 1 40%;
+  margin: 10px;
 `;
 const ProdName = styled.h2`
   font-size: 2.6rem;
   color: ${({ theme }) => theme.colors.primary};
   flex: 1;
   margin: 0 20px 0 0;
+  @media (max-width:${({ theme })=>theme.breakpoints.desktop}){
+    font-size: 2.2rem;
+    margin: 0 10px 0 0;
+   
+  }
 `;
 
 const NameAndRateWrapper = styled.div`
@@ -107,6 +125,7 @@ const Rate = styled.span`
   display: inline;
   font-size: 3rem;
   margin-left: 10px;
+
 `;
 const PriceWrapper = styled.h3`
   font-size: 1.7rem;
@@ -118,12 +137,21 @@ const PriceWrapper = styled.h3`
 
 const Description = styled.div`
   font-size: 1.2rem;
-  padding: 28px 0;
+  padding: 15px 0;
   overflow: hidden;
+  @media (max-width:${({ theme })=>theme.breakpoints.tabLand}){
+   padding: 5px 0;
+  }
 `;
 const CommentsContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
+`;
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 class ProductDetail extends Component {
   state = {
@@ -169,28 +197,25 @@ class ProductDetail extends Component {
           <>
               <NavBar />
               <MainContainer>
+                <Container>
                   <SlideShowContent>
                       <MainImgWrapper>
                           <MainImg src={baseURL + this.state.mainImg} />
                       </MainImgWrapper>
 
                       <SlideShowNavigation>
-                          <StyledButton>
-                              <ArrowSvg rotate />
-                          </StyledButton>
+                          
                           {this.state.images.map(img => (
                               <SmallImg
                                   onClick={() => this.setState({ mainImg: img })}
                                   src={baseURL+img}
                               />
                           ))}
-                          <StyledButton>
-                              <ArrowSvg />
-                          </StyledButton>
+                         
                       </SlideShowNavigation>
                   </SlideShowContent>
-                  <Content>
                       <DescriptionContent>
+                  <Content padding='20px'>
                           <NameAndRateWrapper>
                               <ProdName>{this.state.product.name}</ProdName>
                               <RateWrapper>
@@ -198,15 +223,20 @@ class ProductDetail extends Component {
                                   <Rate>{this.state.product.average_rating}</Rate>
                               </RateWrapper>
                           </NameAndRateWrapper>
-                          <PriceWrapper>{this.state.product.price} $</PriceWrapper>
+                          <Wrapper>
                           <CustomButton
                               onClick={() => this.props.addProduct(this.state.product)}
                           >
-                Dodaj do koszyka
+                            Dodaj do koszyka
                           </CustomButton>
+                          <PriceWrapper>{this.state.product.price} $</PriceWrapper>
+                          </Wrapper>
+                          
                           <Description>{this.state.product.content}</Description>
-                      </DescriptionContent>
                   </Content>
+                      </DescriptionContent>
+                      </Container>
+
                   {this.state.comment_allow && (
                       <AddComment
                           update={this.updateComments}
@@ -233,7 +263,7 @@ class ProductDetail extends Component {
                       </PoseGroup>
                   </CommentsContainer>
               </MainContainer>
-              <Footer />
+
           </>
       );
   }

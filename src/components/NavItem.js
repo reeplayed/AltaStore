@@ -8,6 +8,7 @@ const NavItem = styled.li`
   white-space: nowrap;
   transition: all 0.4s;
   position: relative;
+  text-decoration: none;
 
   @media only screen and (max-width: ${({ theme }) =>
         theme.breakpoints.tabLand}) {
@@ -21,7 +22,7 @@ export const StyledLink = styled(Link)`
   cursor: pointer;
   color: white;
   transition: all 0.2s;
-
+  
   &:hover {
     transform: scale(1.2);
   }

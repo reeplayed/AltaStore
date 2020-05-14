@@ -10,7 +10,6 @@ import axios from '../axios';
 import { connect } from 'react-redux';
 import { setUser } from '../actions/authActions';
 import { setCart } from '../actions/cartActions';
-import StringDivider from '../components/StringDivider';
 
 const LoginContent = styled.div`
   display: flex;
@@ -22,6 +21,9 @@ const LoginContent = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   border-shadow: 5px 10px #888888;
   padding: 20px 40px;
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    padding: 10px 10px;
+  }
 `;
 
 const TextField = styled.input`
@@ -88,7 +90,7 @@ class Login extends Component {
               this.props.setUser();
               this.props.setCart();
               localStorage.removeItem('cart');
-              this.props.history.push('/shop');
+              this.props.history.push('/');
           })
           .catch(
               ({
@@ -107,24 +109,12 @@ class Login extends Component {
   };
 
   onChangeHandler = e => this.setState({ [e.target.id]: e.target.value });
-  // facebookLogin = res => {
-  //     console.log(res);
-  //     axios.post('/login/', {accessToken: res.accessToken, old_cart: JSON.parse(localStorage.cart || '{}')})
-  //         .then(res => {
-  //             localStorage.setItem('token', res.data.auth_token);
-  //             localStorage.setItem('user_info', JSON.stringify(res.data.user_info));
-  //             this.props.setUser();
-  //             this.props.setCart();
-  //             localStorage.removeItem('cart');
-  //             this.props.history.push('/shop');
-  //         })
-  //         .catch(err => console.log(err.message))
-  // };
+ 
   render () {
       return (
           <>
               <NavBar />
-              <Content margin="0 15px">
+              <Content margin="0 5px">
                   <LoginContent>
                       <Heading margin="30px auto" align="center" fsize="3rem">
               Zaloguj
@@ -151,15 +141,6 @@ class Login extends Component {
                           <Error>{this.state.errors.password}</Error>
                           <LoginButton onClick={this.onSubmitHandler}>Zaloguj</LoginButton>
                       </form>
-                      <StringDivider>OR</StringDivider>
-                      {/*<FacebookLogin*/}
-                      {/*    appId="3242694735804717"*/}
-                      {/*    autoLoad={false}*/}
-
-                      {/*    callback={this.facebookLogin}*/}
-                      {/*    render={renderProps => (*/}
-                      {/*        <FacebookLoginButton onClick={renderProps.onClick}>Logowanie z Facebook</FacebookLoginButton>*/}
-                      {/*    )}/>*/}
                       <Link to="/register">Nie posiadasz konta? Zarejestruj się.</Link>
                   </LoginContent>
               </Content>

@@ -57,6 +57,7 @@ export default {
     breakpoints: {
         mobile: '30em',
         tabPort: '37.5em',
+        md: '56em',
         tabLand: '63.75em',
         desktop: '75em',
         height2k: '90em',

@@ -33,13 +33,18 @@ const GlobalStyles = createGlobalStyle`
   body {
 
     font-family: 'Montserrat', sans-serif;
-
+    margin: 0;
+    padding: 0;
     color: ${({ theme: { colors } }) => colors.primary};
     box-sizing: border-box;
     background:${({ theme: { colors } }) => colors.body};
-
+    margin-bottom: 20px;
     // line-height: 1.25;
     // font-kerning: normal;
+  }
+
+  button{
+    cursor: pointer;
   }
 `;
 

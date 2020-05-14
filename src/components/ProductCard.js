@@ -81,7 +81,7 @@ const CardFooter = styled.div`
   align-items: center;
 `;
 const Title = styled.h3`
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: ${({ theme: { colors } }) => colors.black};
   font-weight: 300;
   text-align: center;

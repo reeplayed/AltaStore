@@ -22,6 +22,7 @@ class App extends React.Component {
 
     render () {
         return (
+            <>
             <Router>
                 <Switch>
                     <Route exact path="/login" component={Login} />
@@ -31,8 +32,10 @@ class App extends React.Component {
                     <Route exact path="/product/:slug" component={ProductDetail} />
                     <Route exact path="/:category" component={ProductList} />
                 </Switch>
+                
                 <GlobalStyles />
             </Router>
+            </>
         );
     }
 }

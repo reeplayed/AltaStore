@@ -149,6 +149,9 @@ const MobileNavMenu = styled(MobileMenu)`
   background: ${({ theme: { colors } }) => colors.rgbaPrimary};
   border: 1px solid ${({ theme: { colors } }) => colors.lightGrey};
   border-radius: ${({ theme: { borderRadiuses } }) => borderRadiuses.xl};
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    padding: 10px 5px;
+  }
 `;
 const ProductsMenuPosed = posed.ul({
     show: {
@@ -291,18 +294,21 @@ const NavBar = props => {
 
     const MobileMenu = (
         <MobileNavMenu>
-            <MobileProfileInfo>
+            {props.auth.isAuthenticated && (
+                <>
+                <MobileProfileInfo>
                 <ProfileImage
-                    src={
-                        'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/12208705_779742228802820_2538589918641109269_n.jpg?_nc_cat=107&_nc_ohc=0h5X_ROdSOUAQlKIvt5Dmmtfp4HubNUi4MLkh8KSPUpd_4lCSDkSS9bxA&_nc_ht=scontent-frt3-1.xx&oh=581af87b7641d30fefdc604adbd602f6&oe=5EB17876'
-                    }
+                     src={baseURL + props.auth.image}
                 />
                 <NamesWrapper>
                     <ProfileName>{props.auth.username}</ProfileName>
-                    <ProfileEmail>lukasz.borkowski1998@gmail.com</ProfileEmail>
+                    <ProfileEmail>{props.auth.email}</ProfileEmail>
                 </NamesWrapper>
-            </MobileProfileInfo>
-            <Divider />
+                </MobileProfileInfo>
+                <Divider />
+                </>
+            )}
+           
             <NavItem title="Strona główna" />
             <Divider />
             <NavItem
@@ -312,15 +318,15 @@ const NavBar = props => {
             <MobileSubMenu pose={subMobileMenuOpen ? 'show' : 'hide'}>
                 <Divider />
                 <MobileSubMenuItem>
-                    <StyledLink>Sofy</StyledLink>
+                    <StyledLink to='/sofy'>Sofy</StyledLink>
                 </MobileSubMenuItem>
                 <Divider />
                 <MobileSubMenuItem>
-                    <StyledLink>Fotele</StyledLink>
+                    <StyledLink to='/fotele'>Fotele</StyledLink>
                 </MobileSubMenuItem>
                 <Divider />
                 <MobileSubMenuItem>
-                    <StyledLink>Narożniki</StyledLink>
+                    <StyledLink to='/narozniki'>Narożniki</StyledLink>
                 </MobileSubMenuItem>
                 <Divider />
             </MobileSubMenu>
@@ -328,6 +334,24 @@ const NavBar = props => {
             <NavItem title="Polityka prywatności" />
             <Divider />
             <NavItem title="Kontakt" />
+            {props.auth.isAuthenticated ? (
+                <>
+                <Divider />
+                <NavItem title="Wyloguj" 
+                    onClick={() => {
+                    props.logoutUser();
+                    props.clearCart();
+                    setOpen(false);
+                }}/>
+                </>
+            ):(
+                <>
+                <Divider />
+                <NavItem title="Zaloguj" to='/login'/>
+                <Divider />
+                <NavItem title="Rejestracja" to='/register'/>
+                </>
+            )}
         </MobileNavMenu>
     );
 

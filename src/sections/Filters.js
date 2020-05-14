@@ -204,9 +204,9 @@ const Filters = props => {
             <CategoryFilter />
             <OtherFilters>
                 <OrderFilter />
+                <ClothFilter />
                 {PriceFilter}
                 <ColorFilter />
-                <ClothFilter />
             </OtherFilters>
             <FilterButtonWrapper>
                 <FilterButton onClick={() => submitFilterHandler()}>

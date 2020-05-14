@@ -5,6 +5,9 @@ import { Select, Option } from './SelectComponent';
 const Wrapper = styled.div`
   margin: 5px 5px 0 0;
   height: 42px;
+  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+    height: 33px;
+  }
 `;
 
 const OrderFilterComponent = () => {
@@ -13,7 +16,7 @@ const OrderFilterComponent = () => {
         <Wrapper>
             <Select
                 isFilterSet={option !== ''}
-                width="140px"
+               
                 value={option}
                 onChange={e => setOption(e.target.value)}
                 onBlur={e => setOption(e.target.value)}
