@@ -338,7 +338,7 @@ const NavBar = props => {
                 <>
                 <Divider />
                 <NavItem title="Wyloguj" 
-                    onClick={() => {
+                    click={() => {
                     props.logoutUser();
                     props.clearCart();
                     setOpen(false);

@@ -95,7 +95,7 @@ class Register extends Component {
           return this.setState({ errors });
       }
       axios
-          .post('/registration/', { username, password, email })
+          .post('/registration', { username, password, email })
           .then(res => {
               console.log(res);
           })
