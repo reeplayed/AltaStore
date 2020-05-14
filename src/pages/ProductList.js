@@ -69,7 +69,7 @@ const ProductList = props => {
                 {products.map(prod => (
                     <ProductCard
                         title={prod.name}
-                        image={prod.image}
+                        image={prod.card_image}
                         price={prod.price}
                         slug={prod.slug}
                         rating={prod.average_rating}

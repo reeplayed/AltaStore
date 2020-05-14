@@ -126,6 +126,12 @@ const RemoveButton = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   width: 140px;
 `;
+const EmptySpan = styled.span`
+  display: block;
+  font-size: 2.2rem;
+  text-align: center;
+  padding: 40px 20px;
+`;
 
 const Cart = props => {
     const CartList = props.cart.products.map(prod => (
@@ -133,7 +139,7 @@ const Cart = props => {
             <Image src={baseURL + prod.product.image} />
             <TitleAndPrice>
                 <Title>{prod.product.name}</Title>
-                <Price>{prod.product.price} $</Price>
+                <Price>{prod.product.price} PLN</Price>
                 <div>
                     <RemoveButton onClick={() => props.removeProduct(prod.product, true)}>
             Usuń
@@ -162,7 +168,13 @@ const Cart = props => {
                 </H1>
             </HeaderContent>
 
-            <ProductsConteiner>{CartList}</ProductsConteiner>
+            <ProductsConteiner>
+              {props.cart.products.length ? CartList : (
+                <EmptySpan>
+                  Koszyk jest pusty...
+                </EmptySpan>
+              )}
+            </ProductsConteiner>
 
             <FooterContent>
                 <Modal />
@@ -171,7 +183,7 @@ const Cart = props => {
                     {_.sum(
                         props.cart.products.map(prod => prod.quantity * prod.product.price)
                     )}{' '}
-          $
+          PLN
                 </TotalWrapper>
             </FooterContent>
         </CartContainer>
