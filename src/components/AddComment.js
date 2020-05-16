@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Rating from '@material-ui/lab/Rating';
 import CustomButton from './CustomButton';
 import axios from '../axios';
+import { connect } from 'react-redux';
 
 const AddCommentContent = styled.div`
   background: white;
@@ -42,7 +43,7 @@ const ErrorMessage = styled.span`
   font-size: 1.4em;
 `;
 
-const AddComment = ({ id, update }) => {
+const AddComment = ({ id, update, auth }) => {
     const [comment, setComment] = useState('');
     const [rate, setRate] = useState(0);
     const [error, setError] = useState('');
@@ -51,17 +52,19 @@ const AddComment = ({ id, update }) => {
     const setRateHandler = e => setRate(e.target.value);
 
     const submitHandler = () => {
+        if(!auth.isAuthenticated){
+          return alert('Aby dodać komentarz musisz się zalogować.')
+        }
         if (comment === '') {
             return setError('Wpisz treść komentarza.');
         }
         if (rate === 0) {
             return setError('Wybierz ocenę.');
         }
-
         axios
             .post('/add_comment/', { comment, rate, id })
             .then(({ data }) => update(data.new_comment))
-            .catch(err => console.log(err));
+            .catch(err => alert('Coś poszło nie tak...'));
     };
     return (
         <AddCommentContent>
@@ -87,5 +90,11 @@ const AddComment = ({ id, update }) => {
         </AddCommentContent>
     );
 };
+const mapStateToProps = state => {
+  return {
+      auth: state.auth
+  };
+};
 
-export default AddComment;
+export default connect(mapStateToProps)(AddComment);
+
