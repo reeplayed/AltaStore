@@ -4,6 +4,7 @@ import NavBar, { Backdrop } from '../sections/NavBar';
 import Heading from '../typography/Heading';
 import Content from '../helpers/Content';
 import { Link } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { LoginButton } from '../components/LogButton';
 import axios from '../axios';
@@ -56,7 +57,8 @@ class Login extends Component {
   state = {
       username: '',
       password: '',
-      errors: {}
+      errors: {},
+      loading: false
   };
 
   onSubmitHandler = e => {
@@ -76,7 +78,7 @@ class Login extends Component {
       if (this.state.password === '') {
           return this.setState({ errors: { password: 'To pole jest puste.' } });
       }
-
+      this.setState({loading: true});
       axios
           .post('/token-auth/', {
               username,
@@ -105,7 +107,10 @@ class Login extends Component {
                       }
                   });
               }
-          );
+          )
+          .finally(()=>{
+            this.setState({loading: false});
+          })
   };
 
   onChangeHandler = e => this.setState({ [e.target.id]: e.target.value });
@@ -139,7 +144,13 @@ class Login extends Component {
                               onChange={e => this.onChangeHandler(e)}
                           />
                           <Error>{this.state.errors.password}</Error>
-                          <LoginButton onClick={this.onSubmitHandler}>Zaloguj</LoginButton>
+                            <LoginButton onClick={this.onSubmitHandler}>
+                            {this.state.loading ? (
+                                <CircularProgress size='1.5rem'/>
+                            ):(
+                                'Zaloguj'
+                            )}
+                            </LoginButton>
                       </form>
                       <Link to="/register">Nie posiadasz konta? Zarejestruj się.</Link>
                   </LoginContent>

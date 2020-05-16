@@ -55,8 +55,13 @@ function SimpleModal ({ button, auth, cart, clearCart }) {
         }));
         axios
             .post('/buy_products/', { products: data })
-            .then(() => clearCart())
-            .catch();
+            .then(() => {
+                setOpen(false);
+                clearCart();
+                alert('Pomyślnie zakupiłeś produkty.')
+            })
+            .catch(()=>alert('Coś poszło nie tak...')
+            );
     };
 
     return (

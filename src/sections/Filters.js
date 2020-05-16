@@ -73,6 +73,7 @@ const Filters = props => {
     const [colors, setColors, setAllColors, ColorFilter] = ColorFilterComponent();
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
 
     const isInitialMount = useRef(true);
@@ -80,6 +81,7 @@ const Filters = props => {
     const [flag, setFlag] = useState(true);
 
     const submitFilterHandler = () => {
+        setLoading(true);
         axios
             .get('/productfilterlist/', {
                 params: {
@@ -96,7 +98,10 @@ const Filters = props => {
                 setProducts(res.data.results);
                 setQueryString();
             })
-            .catch(() => props.history.push('/404'));
+            .catch(() => props.history.push('/404'))
+            .finally(()=>{
+                setLoading(false);
+            })
     };
 
     const setQueryString = () => {
@@ -117,6 +122,7 @@ const Filters = props => {
         props.history.push({ search: '?' + queryString });
     };
     const paginationHandler = page => {
+        setLoading(true);
         axios
             .get('/productfilterlist/', {
                 params: {
@@ -134,7 +140,10 @@ const Filters = props => {
                 setPage(page);
                 setFlag(!flag);
             })
-            .catch(() => props.history.push('/404'));
+            .catch(() => props.history.push('/404'))
+            .finally(()=>{
+                setLoading(false);
+            })
     };
 
     useEffect(() => {
@@ -144,7 +153,7 @@ const Filters = props => {
     useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
-
+            setLoading(true);
             axios
                 .post('/url_filters_cleaner/', initialFilterURLParams)
                 .then(({ data }) => {
@@ -176,8 +185,12 @@ const Filters = props => {
                         })
                         .catch(() => props.history.push('/404'));
                 })
-                .catch(() => props.history.push('/404'));
+                .catch(() => props.history.push('/404'))
+                .finally(()=>{
+                    setLoading(false);
+                })
         } else {
+            setLoading(true);
             axios
                 .get('/productfilterlist/', { params: { category: category } })
                 .then(res => {
@@ -195,7 +208,10 @@ const Filters = props => {
                     setCloth('');
                     setOrder('');
                 })
-                .catch(() => props.history.push('/404'));
+                .catch(() => props.history.push('/404'))
+                .finally(()=>{
+                    setLoading(false);
+                })
         }
     }, [category]);
 
@@ -216,6 +232,6 @@ const Filters = props => {
         </FiltersContent>
     );
 
-    return [products, page, totalPages, FiltersComponent, paginationHandler];
+    return [loading, products, page, totalPages, FiltersComponent, paginationHandler];
 };
 export default Filters;

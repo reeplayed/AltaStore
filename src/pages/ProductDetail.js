@@ -10,6 +10,7 @@ import Heading from '../typography/Heading';
 import Comment from '../components/Comment';
 import posed, { PoseGroup } from 'react-pose';
 import axios, {baseURL} from '../axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const MainContainer = styled.main`
   margin: 70px 15px 0 15px;
@@ -153,13 +154,21 @@ const Wrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
 `;
+const ProgressWrapper = styled.div`
+    margin-top: 120px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 class ProductDetail extends Component {
   state = {
       product: {},
       mainImg: '',
       images: [],
       comments: [],
-      comment_allow: false
+      comment_allow: false,
+      loading: true
   };
 
   constructor (props) {
@@ -181,7 +190,8 @@ class ProductDetail extends Component {
                   comment_allow: true
               });
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err))
+          .finally(()=>this.setState({loading: false}))
   }
 
   updateComments = new_comment => {
@@ -193,7 +203,11 @@ class ProductDetail extends Component {
   };
 
   render () {
-      return (
+      return this.state.loading ? (
+        <ProgressWrapper>
+            <CircularProgress size='15rem'/>
+        </ProgressWrapper>
+      ) : (
           <>
               <NavBar />
               <MainContainer>

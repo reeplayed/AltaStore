@@ -5,6 +5,7 @@ import Heading from '../typography/Heading';
 import Content from '../helpers/Content';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { LoginButton } from '../components/LogButton';
 import axios from '../axios';
@@ -61,7 +62,8 @@ class Register extends Component {
       email: '',
       password: '',
       confirm_password: '',
-      errors: {}
+      errors: {},
+      loading: false
   };
 
   onSubmitHandler = e => {
@@ -94,6 +96,7 @@ class Register extends Component {
       if (!_.isEmpty(errors)) {
           return this.setState({ errors });
       }
+      this.setState({loading: true});
       axios
           .post('/registration/', { username, password, email })
           .then(res => {
@@ -101,10 +104,19 @@ class Register extends Component {
               this.props.history.push('/')
               alert('Pomyślnie utworzyłeś konto.')
           })
-          .catch(err => {
-              console.log(err.response);
-              alert('Coś poszło nie tak...')
-          });
+          .catch(({response}) => {
+            console.log(response);
+            if(response.status===400){
+                this.setState({errors: response.data.errors})
+            }
+            else{
+                alert('Coś poszło nie tak...')
+            }
+            
+          })
+          .finally(()=>{
+            this.setState({loading: false});
+          })
   };
 
   onChangeHandler = e => this.setState({ [e.target.id]: e.target.value });
@@ -157,7 +169,11 @@ class Register extends Component {
                           />
                           <Error>{this.state.errors.confirm_password}</Error>
                           <LoginButton onClick={this.onSubmitHandler}>
-                Zarejestruj
+                            {this.state.loading ? (
+                                <CircularProgress size='1.5rem'/>
+                            ):(
+                                'Zarejestruj'
+                            )}
                           </LoginButton>
                       </form>
                       <Link to="/login">Masz już konto ?</Link>

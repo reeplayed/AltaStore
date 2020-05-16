@@ -3,6 +3,7 @@ import NavBar from '../sections/NavBar';
 import styled from 'styled-components';
 import Filters from '../sections/Filters';
 import ProductCard from '../components/ProductCard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ProductListContent = styled.div`
   margin: 20px 0 0 0;
@@ -40,9 +41,20 @@ const PaginationButton = styled.button`
   font-family: ${({ theme }) => theme.fonts.heading};
   cursor: pointer;
 `;
-
+const Typography = styled.span`
+  display: block;
+  color: ${({theme})=>theme.colors.primary};
+  font-size: 1.2rem;
+`;
+const Wrapper = styled.div`
+margin-top: 100px; 
+display: flex;
+align-items: center;
+justify-content: center;
+`;
 const ProductList = props => {
     const [
+        loading,
         products,
         currentPage,
         totalPages,
@@ -65,8 +77,13 @@ const ProductList = props => {
         <>
             <NavBar />
             {Filter}
-            <ProductListContent>
-                {products.map(prod => (
+                {loading ? (
+                  <Wrapper>
+                    <CircularProgress size='15rem'/>
+                  </Wrapper>
+                ) : products.length ? (
+                  <ProductListContent>
+                  {products.map(prod => (
                     <ProductCard
                         title={prod.name}
                         image={prod.card_image}
@@ -75,8 +92,16 @@ const ProductList = props => {
                         rating={prod.average_rating}
                     />
                 ))}
-            </ProductListContent>
-            <PaginationContent>{pages}</PaginationContent>
+                  </ProductListContent>
+                ):(
+                  <Wrapper>
+                     <Typography>
+                        Brak produktów z podanymi kryteriami...
+                     </Typography>
+                  </Wrapper>
+                )}
+               
+            {!loading && products.length && <PaginationContent>{pages}</PaginationContent>}
         </>
     );
 };

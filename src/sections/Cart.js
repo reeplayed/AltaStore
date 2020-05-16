@@ -62,6 +62,7 @@ const TotalWrapper = styled.h5`
 const ProductsConteiner = styled.div`
   flex: 1;
   padding: 5px;
+  overflow-y: scroll;
 `;
 const ProductContainerPose = posed.div({
     enter: {
@@ -80,6 +81,7 @@ const ProductContainer = styled(ProductContainerPose)`
   display: flex;
   padding: 8px;
   margin-bottom: 4px;
+  
 `;
 const Image = styled.img`
   width: 150px;
@@ -136,7 +138,7 @@ const EmptySpan = styled.span`
 const Cart = props => {
     const CartList = props.cart.products.map(prod => (
         <ProductContainer>
-            <Image src={baseURL + prod.product.image} />
+            <Image src={baseURL + prod.product.card_image} />
             <TitleAndPrice>
                 <Title>{prod.product.name}</Title>
                 <Price>{prod.product.price} PLN</Price>

@@ -397,7 +397,7 @@ const NavBar = props => {
             </LogoWrapper>
 
             <NavMenu>
-                <NavItem title="Strona główna" />
+                <NavItem title="Strona główna" to='/'/>
                 <NavItem title="Produkty" click={() => setOpenHandler('subMenu')}>
                     {SubMenu}
                 </NavItem>
