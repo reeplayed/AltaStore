@@ -22,8 +22,12 @@ const OrderFilterComponent = () => {
                 onBlur={e => setOption(e.target.value)}
             >
                 <Option value="">Sortuj :</Option>
-                <Option value="price_up">Najniższa cena</Option>
-                <Option value="price_down">Najwyższa cena</Option>
+                <Option value="price_up">Najwyższa cena</Option>
+                <Option value="price_down">Najniższa cena</Option>
+                <Option value="rate_up">Najwyższa ocena</Option>
+                <Option value="rate_down">Najniższa ocena</Option>
+                <Option value="sell_up">Najwyższa sprzedaż</Option>
+                <Option value="sell_down">Najniższa sprzedaż</Option>
             </Select>
         </Wrapper>
     );
