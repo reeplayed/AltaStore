@@ -14,7 +14,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const MainContainer = styled.main`
   margin: 70px 15px 0 15px;
-  
+  @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+    margin: 70px 0 0 0;
+   }
 `;
 const Container = styled.main`
   
