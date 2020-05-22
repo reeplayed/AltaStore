@@ -19,7 +19,6 @@ const MainContainer = styled.main`
    }
 `;
 const Container = styled.main`
-  
   display:flex;
   flex-wrap: wrap;
   align-items: strech;
@@ -75,6 +74,7 @@ const MainImg = styled.img`
   left: 0;
   object-fit: cover;
   width: 100%;
+  height: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 const SlideShowNavigation = styled.div`
