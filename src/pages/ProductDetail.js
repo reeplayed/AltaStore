@@ -115,7 +115,6 @@ const ProdName = styled.h2`
   @media (max-width:${({ theme })=>theme.breakpoints.desktop}){
     font-size: 2.2rem;
     margin: 0 10px 0 0;
-   
   }
 `;
 
@@ -231,25 +230,25 @@ class ProductDetail extends Component {
                       </SlideShowNavigation>
                   </SlideShowContent>
                       <DescriptionContent>
-                  <Content padding='20px'>
-                          <NameAndRateWrapper>
-                              <ProdName>{this.state.product.name}</ProdName>
-                              <RateWrapper>
-                                  <StarSvg />
-                                  <Rate>{this.state.product.average_rating}</Rate>
-                              </RateWrapper>
-                          </NameAndRateWrapper>
-                          <Wrapper>
-                          <CustomButton
-                              onClick={() => this.props.addProduct(this.state.product)}
-                          >
-                            Dodaj do koszyka
-                          </CustomButton>
-                          <PriceWrapper>{this.state.product.price} $</PriceWrapper>
-                          </Wrapper>
-                          
-                          <Description>{this.state.product.content}</Description>
-                  </Content>
+                        <Content padding='20px'>
+                                <NameAndRateWrapper>
+                                    <ProdName>{this.state.product.name}</ProdName>
+                                    <RateWrapper>
+                                        <StarSvg />
+                                        <Rate>{this.state.product.average_rating}</Rate>
+                                    </RateWrapper>
+                                </NameAndRateWrapper>
+                                <Wrapper>
+                                <CustomButton
+                                    onClick={() => this.props.addProduct(this.state.product)}
+                                >
+                                  Dodaj do koszyka
+                                </CustomButton>
+                                <PriceWrapper>{this.state.product.price} $</PriceWrapper>
+                                </Wrapper>
+                                
+                                <Description>{this.state.product.content}</Description>
+                        </Content>
                       </DescriptionContent>
                       </Container>
 
