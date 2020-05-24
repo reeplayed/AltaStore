@@ -8,19 +8,19 @@ import { addProduct, removeProduct } from '../actions/cartActions';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Modal from '../components/Modal';
-import {baseURL} from '../axios';
+import { baseURL } from '../axios';
 
 const CartContainerPose = posed.div({
-    enter: {
-        x: 0,
-        transition: { duration: 300 },
-        beforeChildren: false,
-        staggerChildren: 100
-    },
-    exit: {
-        x: 620,
-        transition: { duration: 300 }
-    }
+  enter: {
+    x: 0,
+    transition: { duration: 300 },
+    beforeChildren: false,
+    staggerChildren: 100,
+  },
+  exit: {
+    x: 620,
+    transition: { duration: 300 },
+  },
 });
 
 const CartContainer = styled(CartContainerPose)`
@@ -33,7 +33,7 @@ const CartContainer = styled(CartContainerPose)`
   flex-direction: column;
   background: ${({ theme }) => theme.colors.lightGrey};
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabPort}) {
+      theme.breakpoints.tabPort}) {
     width: 100%;
   }
 `;
@@ -65,13 +65,13 @@ const ProductsConteiner = styled.div`
   overflow-y: scroll;
 `;
 const ProductContainerPose = posed.div({
-    enter: {
-        opacity: 1,
-        transition: { delay: 230 }
-    },
-    exit: {
-        opacity: 0
-    }
+  enter: {
+    opacity: 1,
+    transition: { delay: 230 },
+  },
+  exit: {
+    opacity: 0,
+  },
 });
 
 const ProductContainer = styled(ProductContainerPose)`
@@ -81,7 +81,6 @@ const ProductContainer = styled(ProductContainerPose)`
   display: flex;
   padding: 8px;
   margin-bottom: 4px;
-  
 `;
 const Image = styled.img`
   width: 150px;
@@ -136,66 +135,66 @@ const EmptySpan = styled.span`
 `;
 
 const Cart = props => {
-    const CartList = props.cart.products.map(prod => (
-        <ProductContainer>
-            <Image src={baseURL + prod.product.card_image} />
-            <TitleAndPrice>
-                <Title>{prod.product.name}</Title>
-                <Price>{prod.product.price} PLN</Price>
-                <div>
-                    <RemoveButton onClick={() => props.removeProduct(prod.product, true)}>
+  const CartList = props.cart.products.map(prod => (
+    <ProductContainer>
+      <Image src={baseURL + prod.product.card_image} />
+      <TitleAndPrice>
+        <Title>{prod.product.name}</Title>
+        <Price>{prod.product.price} PLN</Price>
+        <div>
+          <RemoveButton onClick={() => props.removeProduct(prod.product, true)}>
             Usuń
-                    </RemoveButton>
-                </div>
-            </TitleAndPrice>
-            <AddOddHolder>
-                <AddButton onclick={() => props.addProduct(prod.product)} />
-                <Quantity>{prod.quantity}</Quantity>
-                <AddButton
-                    add
-                    onclick={() => props.removeProduct(prod.product, false)}
-                />
-            </AddOddHolder>
-        </ProductContainer>
-    ));
+          </RemoveButton>
+        </div>
+      </TitleAndPrice>
+      <AddOddHolder>
+        <AddButton onclick={() => props.addProduct(prod.product)} />
+        <Quantity>{prod.quantity}</Quantity>
+        <AddButton
+          add
+          onclick={() => props.removeProduct(prod.product, false)}
+        />
+      </AddOddHolder>
+    </ProductContainer>
+  ));
 
-    return (
-        <CartContainer>
-            <HeaderContent>
-                <CloseButtonWrapper onClick={props.close}>
-                    <Hamburger isOpen click={props.close} />
-                </CloseButtonWrapper>
-                <H1 fsize="3rem" color="white" align="center">
+  return (
+    <CartContainer>
+      <HeaderContent>
+        <CloseButtonWrapper onClick={props.close}>
+          <Hamburger isOpen click={props.close} />
+        </CloseButtonWrapper>
+        <H1 fsize="3rem" color="white" align="center">
           Koszyk
-                </H1>
-            </HeaderContent>
+        </H1>
+      </HeaderContent>
 
-            <ProductsConteiner>
-              {props.cart.products.length ? CartList : (
-                <EmptySpan>
-                  Koszyk jest pusty...
-                </EmptySpan>
-              )}
-            </ProductsConteiner>
+      <ProductsConteiner>
+        {props.cart.products.length ? (
+          CartList
+        ) : (
+          <EmptySpan>Koszyk jest pusty...</EmptySpan>
+        )}
+      </ProductsConteiner>
 
-            <FooterContent>
-                <Modal />
-                <TotalWrapper>
+      <FooterContent>
+        <Modal />
+        <TotalWrapper>
           Razem:{' '}
-                    {_.sum(
-                        props.cart.products.map(prod => prod.quantity * prod.product.price)
-                    )}{' '}
+          {_.sum(
+            props.cart.products.map(prod => prod.quantity * prod.product.price)
+          )}{' '}
           PLN
-                </TotalWrapper>
-            </FooterContent>
-        </CartContainer>
-    );
+        </TotalWrapper>
+      </FooterContent>
+    </CartContainer>
+  );
 };
 
 const mapStateToProps = state => {
-    return {
-        cart: state.cart
-    };
+  return {
+    cart: state.cart,
+  };
 };
 
 export default connect(mapStateToProps, { addProduct, removeProduct })(Cart);

@@ -8,12 +8,11 @@ import theme from './theme';
 import './App.css';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <App/>
-        </ThemeProvider>,
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
+    ,
+  </Provider>,
+  document.getElementById('root')
 );
-
-

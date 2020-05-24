@@ -12,38 +12,38 @@ import ProductDetail from './pages/ProductDetail';
 import ProductList from './pages/ProductList';
 
 class App extends React.Component {
-    constructor (props) {
-        super(props);
-        if (localStorage.token) {
-            this.props.setUser();
-        }
-        this.props.setCart();
+  constructor(props) {
+    super(props);
+    if (localStorage.token) {
+      this.props.setUser();
     }
+    this.props.setCart();
+  }
 
-    render () {
-        return (
-            <>
-            <Router>
-                <Switch>
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/" component={MainPage} />
-                    <Route exact path="/404" component={Page404} />
-                    <Route exact path="/product/:slug" component={ProductDetail} />
-                    <Route exact path="/:category" component={ProductList} />
-                </Switch>
-                
-                <GlobalStyles />
-            </Router>
-            </>
-        );
-    }
+  render() {
+    return (
+      <>
+        <Router>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/" component={MainPage} />
+            <Route exact path="/404" component={Page404} />
+            <Route exact path="/product/:slug" component={ProductDetail} />
+            <Route exact path="/:category" component={ProductList} />
+          </Switch>
+
+          <GlobalStyles />
+        </Router>
+      </>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth,
+  };
 };
 
 export default connect(mapStateToProps, { setCart, setUser })(App);

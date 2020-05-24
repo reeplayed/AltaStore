@@ -8,8 +8,6 @@ import price from '../static/price.jpg';
 
 const Container = styled.section`
   padding: 2rem;
-
-
 `;
 
 const InfoContainer = styled.div`
@@ -36,43 +34,44 @@ const Description = styled.h4`
   line-height: 1.5;
 `;
 const Info = () => {
-    return (
-        <Container>
-            <Heading margin="3rem auto" align="center" fsize="3rem">
+  return (
+    <Container>
+      <Heading margin="3rem auto" align="center" fsize="3rem">
         Dlaczego my?
-            </Heading>
-            <FlexBox align='strech'>
-                <InfoContainer url={wysylka}>
-                    <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
+      </Heading>
+      <FlexBox align="strech">
+        <InfoContainer url={wysylka}>
+          <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Darmowa wysyłka
-                    </Heading>
-                    <Description>
+          </Heading>
+          <Description>
             Zapewniamy darmową wysyłkę przy dokonaniu przedpłaty (przelewem /
             Blikiem) za zamówienie o wartości powyżej 1500zł.
-                    </Description>
-                </InfoContainer>
-                <InfoContainer url={jakosc}>
-                    <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
+          </Description>
+        </InfoContainer>
+        <InfoContainer url={jakosc}>
+          <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Najlepsza jakość
-                    </Heading>
-                    <Description>
-        Nie chcemy ich zmieniać co rok, czy dwa lata.
-            Marzymy, aby były naszymi codziennymi i oddanymi towarzyszami,
-            spełniającymi swe zadania.
-                    </Description>
-                </InfoContainer>
-                <InfoContainer url={price}>
-                    <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
+          </Heading>
+          <Description>
+            Nie chcemy ich zmieniać co rok, czy dwa lata. Marzymy, aby były
+            naszymi codziennymi i oddanymi towarzyszami, spełniającymi swe
+            zadania.
+          </Description>
+        </InfoContainer>
+        <InfoContainer url={price}>
+          <Heading margin="2rem 0" align="center" fsize="3rem" color="white">
             Konkurencyjne ceny
-                    </Heading>
-                    <Description>
-            Zapewniamy konkurencyjne ceny. Nasza firma posiada najbardziej zoptymalizowane produkty, 
-            jeżeli bierzemy pod uwagę cenę oraz jakośc.
-                    </Description>
-                </InfoContainer>
-            </FlexBox>
-        </Container>
-    );
+          </Heading>
+          <Description>
+            Zapewniamy konkurencyjne ceny. Nasza firma posiada najbardziej
+            zoptymalizowane produkty, jeżeli bierzemy pod uwagę cenę oraz
+            jakośc.
+          </Description>
+        </InfoContainer>
+      </FlexBox>
+    </Container>
+  );
 };
 
 export default Info;

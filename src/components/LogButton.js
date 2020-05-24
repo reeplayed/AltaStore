@@ -13,7 +13,7 @@ const Button = styled.button`
 `;
 export const LoginButton = styled(Button)`
   background: ${({ bgcolor, theme }) =>
-        bgcolor ? theme.colors.grey : theme.colors.primary};
+    bgcolor ? theme.colors.grey : theme.colors.primary};
 `;
 export const FacebookLoginButton = styled(Button)`
   border: 0;
@@ -21,7 +21,7 @@ export const FacebookLoginButton = styled(Button)`
 `;
 
 const LogButton = ({ children }) => {
-    return <Button>{children}</Button>;
+  return <Button>{children}</Button>;
 };
 
 export default LogButton;

@@ -5,8 +5,8 @@ import posed from 'react-pose';
 import Rating from '@material-ui/lab/Rating';
 
 const Img = styled.img`
-max-width: 100%;
-height: auto;
+  max-width: 100%;
+  height: auto;
   transition: all 0.5s;
   object-fit: cover;
 `;
@@ -26,18 +26,18 @@ const Check = styled.h4`
   font-family: ${({ theme }) => theme.fonts.heading};
 `;
 const Item = posed.div({
-    flip: {
-        scale: 1,
-        transition: {
-            scale: {
-                type: 'spring',
-                velocity: 10
-            },
-            default: {
-                type: 'spring'
-            }
-        }
-    }
+  flip: {
+    scale: 1,
+    transition: {
+      scale: {
+        type: 'spring',
+        velocity: 10,
+      },
+      default: {
+        type: 'spring',
+      },
+    },
+  },
 });
 const ProdContainer = styled(Item)`
   padding: 1rem;
@@ -94,26 +94,26 @@ const Price = styled.h5`
 `;
 
 const ProductCard = ({ title, image, price, slug, rating }) => {
-    return (
-        <StyledLink to={'/product/' + slug}>
-            <ProdContainer>
-                <ImgWrapper>
-                    <Check>Sprawdź</Check>
-                    <Img src={image} />
-                </ImgWrapper>
-                <CardFooter>
-                    <Title>{title}</Title>
-                    <Price>{price} PLN</Price>
-                    <Rating
-                        name="half-rating-read"
-                        value={rating}
-                        precision={0.5}
-                        readOnly
-                    />
-                </CardFooter>
-            </ProdContainer>
-        </StyledLink>
-    );
+  return (
+    <StyledLink to={'/product/' + slug}>
+      <ProdContainer>
+        <ImgWrapper>
+          <Check>Sprawdź</Check>
+          <Img src={image} />
+        </ImgWrapper>
+        <CardFooter>
+          <Title>{title}</Title>
+          <Price>{price} PLN</Price>
+          <Rating
+            name="half-rating-read"
+            value={rating}
+            precision={0.5}
+            readOnly
+          />
+        </CardFooter>
+      </ProdContainer>
+    </StyledLink>
+  );
 };
 
 export default ProductCard;

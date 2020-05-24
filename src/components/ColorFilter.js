@@ -6,7 +6,6 @@ import _ from 'lodash';
 const Wrapper = styled.div`
   margin: 5px 5px 0 0;
   position: relative;
-  
 `;
 const ColorButton = styled.button`
   font-size: 1.2rem;
@@ -15,21 +14,21 @@ const ColorButton = styled.button`
   padding: 0 24px;
   margin: 0;
   color: ${({ isFilterSet, theme: { colors } }) =>
-        isFilterSet ? colors.primary : colors.shadow};
+    isFilterSet ? colors.primary : colors.shadow};
   border: 1px solid
     ${({ isFilterSet, theme: { colors } }) =>
-        isFilterSet ? colors.primary : colors.shadow};
+      isFilterSet ? colors.primary : colors.shadow};
   border-radius: 8px;
   height: 42px;
   font-family: ${({ theme }) => theme.fonts.heading};
   cursor: pointer;
-  &:hover{
-    color: ${({theme: { colors } }) => colors.primary};
+  &:hover {
+    color: ${({ theme: { colors } }) => colors.primary};
   }
-  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabPort}) {
     height: 33px;
   }
-  @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 0 13px;
   }
 `;
@@ -86,61 +85,61 @@ const InputSpan = styled.span`
 `;
 
 const ColorFilterComponent = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [colors, setColors] = useState([]);
-    const [allColors, setAllColors] = useState([]);
-    const openHandler = () => {
-        setIsOpen(!isOpen);
-    };
+  const [isOpen, setIsOpen] = useState(false);
+  const [colors, setColors] = useState([]);
+  const [allColors, setAllColors] = useState([]);
+  const openHandler = () => {
+    setIsOpen(!isOpen);
+  };
 
-    window.onclick = e => {
-        if (!e.target.matches('.color-filter')) {
-            setIsOpen(false);
-        }
-    };
+  window.onclick = e => {
+    if (!e.target.matches('.color-filter')) {
+      setIsOpen(false);
+    }
+  };
 
-    const setColorHandler = value => {
-        let copyColors = [...colors];
-        if (_.includes(colors, value)) {
-            setColors(copyColors.filter(color => color !== value));
-        } else {
-            copyColors.push(value);
-            setColors(copyColors);
-        }
-    };
+  const setColorHandler = value => {
+    let copyColors = [...colors];
+    if (_.includes(colors, value)) {
+      setColors(copyColors.filter(color => color !== value));
+    } else {
+      copyColors.push(value);
+      setColors(copyColors);
+    }
+  };
 
-    const ColorItem = ({ value, color }) => (
-        <ItemContent
-            className="color-filter"
-            checked={_.includes(colors, value)}
-            onClick={() => setColorHandler(value)}
-        >
-            {value}
+  const ColorItem = ({ value, color }) => (
+    <ItemContent
+      className="color-filter"
+      checked={_.includes(colors, value)}
+      onClick={() => setColorHandler(value)}
+    >
+      {value}
 
-            <InputSpan color={color} />
-            <ColorInput className="color-filter" type="checkbox" />
-        </ItemContent>
-    );
-    const ColorFilter = () => (
-        <Wrapper>
-            <ColorButton
-                className="color-filter"
-                isFilterSet={colors.length !== 0}
-                onClick={openHandler}
-            >
+      <InputSpan color={color} />
+      <ColorInput className="color-filter" type="checkbox" />
+    </ItemContent>
+  );
+  const ColorFilter = () => (
+    <Wrapper>
+      <ColorButton
+        className="color-filter"
+        isFilterSet={colors.length !== 0}
+        onClick={openHandler}
+      >
         Kolor :
-            </ColorButton>
+      </ColorButton>
 
-            <ColorsWrapper className="color-filter" open={isOpen}>
-                <ColorList>
-                    {allColors.map(item => (
-                        <ColorItem value={item[0]} color={item[1]} />
-                    ))}
-                </ColorList>
-            </ColorsWrapper>
-        </Wrapper>
-    );
-    return [colors, setColors, setAllColors, ColorFilter];
+      <ColorsWrapper className="color-filter" open={isOpen}>
+        <ColorList>
+          {allColors.map(item => (
+            <ColorItem value={item[0]} color={item[1]} />
+          ))}
+        </ColorList>
+      </ColorsWrapper>
+    </Wrapper>
+  );
+  return [colors, setColors, setAllColors, ColorFilter];
 };
 
 export default ColorFilterComponent;

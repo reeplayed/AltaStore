@@ -36,9 +36,9 @@ const HamburgerInner = styled.span`
     content: '';
     top: -10px;
     background: ${({ theme, color }) =>
-        color ? theme.colors.primary : 'white'};
+      color ? theme.colors.primary : 'white'};
     transform: ${({ isOpen }) =>
-        isOpen ? 'translateY(10px) rotate(-45deg)' : ''};
+      isOpen ? 'translateY(10px) rotate(-45deg)' : ''};
     transition: transform 0.5s;
   }
 
@@ -46,19 +46,19 @@ const HamburgerInner = styled.span`
     content: '';
     top: 10px;
     background: ${({ theme, color }) =>
-        color ? theme.colors.primary : 'white'};
+      color ? theme.colors.primary : 'white'};
     transform: ${({ isOpen }) =>
-        isOpen ? 'translateY(-10px) rotate(45deg)' : ''};
+      isOpen ? 'translateY(-10px) rotate(45deg)' : ''};
     transition: transform 0.5s;
   }
 `;
 
 const Hamburger = ({ click, isOpen, color }) => {
-    return (
-        <HamburgerButton onClick={click}>
-            <HamburgerInner isOpen={isOpen} color={color} />
-        </HamburgerButton>
-    );
+  return (
+    <HamburgerButton onClick={click}>
+      <HamburgerInner isOpen={isOpen} color={color} />
+    </HamburgerButton>
+  );
 };
 
 export default Hamburger;

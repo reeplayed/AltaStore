@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   background: white;
   flex-direction: column;
   opacity: ${({ isFilterSet }) => (isFilterSet ? '0.4' : '1')};
-  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabPort}) {
     padding: 1px 13px;
     height: 33px;
   }
@@ -27,55 +27,54 @@ const RangeLabelsWrapper = styled.div`
 `;
 const ValueLabel = styled.label`
   font-size: 1rem;
-  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabPort}) {
     font-size: 0.8rem;
   }
 `;
 
 const CustomSlider = withStyles({
-    root: {
-        color: '#373737',
-        padding: '0',
-        margin: '10px 0 5px 0'
-    },
-    thumb: {
-        backgroundColor: '#fff',
-        border: '1px solid #373737'
-    }
+  root: {
+    color: '#373737',
+    padding: '0',
+    margin: '10px 0 5px 0',
+  },
+  thumb: {
+    backgroundColor: '#fff',
+    border: '1px solid #373737',
+  },
 })(Slider);
 
 const PriceFilterComponent = category => {
+  const [range, setRange] = useState([]);
+  const [value, setValue] = useState([]);
 
-    const [range, setRange] = useState([]);
-    const [value, setValue] = useState([]);
+  const isFilterSet = () => {
+    if (range[0] === value[0] && range[1] === value[1]) {
+      return true;
+    }
+    return false;
+  };
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-    const isFilterSet = () => {
-        if (range[0] === value[0] && range[1] === value[1]) {
-            return true;
-        }
-        return false;
-    };
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  const PriceFilter = (
+    <Wrapper isFilterSet={isFilterSet()}>
+      <RangeLabelsWrapper>
+        <ValueLabel>{value[0]} zł</ValueLabel>
+        <ValueLabel>{value[1]} zł</ValueLabel>
+      </RangeLabelsWrapper>
+      <CustomSlider
+        min={range[0]}
+        max={range[1]}
+        value={value}
+        onChange={handleChange}
+        aria-labelledby="range-slider"
+      />
+    </Wrapper>
+  );
 
-    const PriceFilter = (
-        <Wrapper isFilterSet={isFilterSet()}>
-            <RangeLabelsWrapper>
-                <ValueLabel>{value[0]} zł</ValueLabel>
-                <ValueLabel>{value[1]} zł</ValueLabel>
-            </RangeLabelsWrapper>
-            <CustomSlider
-                min={range[0]}
-                max={range[1]}
-                value={value}
-                onChange={handleChange}
-                aria-labelledby="range-slider"
-            />
-        </Wrapper>
-    );
-
-    return [value, range, setValue, setRange, PriceFilter];
+  return [value, range, setValue, setRange, PriceFilter];
 };
 
 export default PriceFilterComponent;

@@ -11,7 +11,7 @@ const NavItem = styled.li`
   text-decoration: none;
 
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabLand}) {
+      theme.breakpoints.tabLand}) {
     padding: 12px 15px;
     font-size: 2.3em;
   }
@@ -22,15 +22,15 @@ export const StyledLink = styled(Link)`
   cursor: pointer;
   color: white;
   transition: all 0.2s;
-  
+
   &:hover {
     transform: scale(1.2);
   }
 `;
 
 export default ({ children, title, to, click }) => (
-    <NavItem onClick={click}>
-        <StyledLink to={to}>{title}</StyledLink>
-        {children}
-    </NavItem>
+  <NavItem onClick={click}>
+    <StyledLink to={to}>{title}</StyledLink>
+    {children}
+  </NavItem>
 );

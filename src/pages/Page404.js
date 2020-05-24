@@ -9,11 +9,11 @@ const Banner404 = styled.h1`
 `;
 
 const Page404 = () => {
-    return (
-        <>
-            <NavBar />
-            <Banner404>404 Not Found</Banner404>
-        </>
-    );
+  return (
+    <>
+      <NavBar />
+      <Banner404>404 Not Found</Banner404>
+    </>
+  );
 };
 export default Page404;

@@ -42,13 +42,13 @@ const InnerButton = styled.span`
   }
 `;
 const AddButton = ({ add, onclick }) => {
-    return (
-        <Button onClick={onclick}>
-            <ButtonContent>
-                <InnerButton add={add} />
-            </ButtonContent>
-        </Button>
-    );
+  return (
+    <Button onClick={onclick}>
+      <ButtonContent>
+        <InnerButton add={add} />
+      </ButtonContent>
+    </Button>
+  );
 };
 
 export default AddButton;

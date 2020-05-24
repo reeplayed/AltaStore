@@ -26,12 +26,10 @@ const MainHeader = styled.h1`
   margin-bottom: 10px;
   white-space: nowrap;
 
-  @media (max-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.tabPort}) {
+  @media (max-width: ${({ theme: { breakpoints } }) => breakpoints.tabPort}) {
     font-size: ${({ theme: { fontSizes } }) => fontSizes.xxl};
   }
-  @media (max-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.mobile}) {
+  @media (max-width: ${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     font-size: ${({ theme: { fontSizes } }) => fontSizes.lg};
   }
 `;
@@ -43,25 +41,23 @@ const SecondaryHeader = styled.h2`
   font-family: ${({ theme }) => theme.fonts.logo};
   white-space: nowrap;
 
-  @media (max-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.tabPort}) {
+  @media (max-width: ${({ theme: { breakpoints } }) => breakpoints.tabPort}) {
     font-size: ${({ theme: { fontSizes } }) => fontSizes.lg};
   }
-  @media (max-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.mobile}) {
+  @media (max-width: ${({ theme: { breakpoints } }) => breakpoints.mobile}) {
     font-size: ${({ theme: { fontSizes } }) => fontSizes.md};
   }
 `;
 
 const Header = () => (
-    <Content>
-        <Banner>
-            <HeaderGroup>
-                <MainHeader>Alta Arte</MainHeader>
-                <SecondaryHeader>Meble dla twojego mieszkania</SecondaryHeader>
-            </HeaderGroup>
-        </Banner>
-    </Content>
+  <Content>
+    <Banner>
+      <HeaderGroup>
+        <MainHeader>Alta Arte</MainHeader>
+        <SecondaryHeader>Meble dla twojego mieszkania</SecondaryHeader>
+      </HeaderGroup>
+    </Banner>
+  </Content>
 );
 
 export default Header;

@@ -44,57 +44,56 @@ const ErrorMessage = styled.span`
 `;
 
 const AddComment = ({ id, update, auth }) => {
-    const [comment, setComment] = useState('');
-    const [rate, setRate] = useState(0);
-    const [error, setError] = useState('');
+  const [comment, setComment] = useState('');
+  const [rate, setRate] = useState(0);
+  const [error, setError] = useState('');
 
-    const setCommentHandler = e => setComment(e.target.value);
-    const setRateHandler = e => setRate(e.target.value);
+  const setCommentHandler = e => setComment(e.target.value);
+  const setRateHandler = e => setRate(e.target.value);
 
-    const submitHandler = () => {
-        if(!auth.isAuthenticated){
-          return alert('Aby dodać komentarz musisz się zalogować.')
-        }
-        if (comment === '') {
-            return setError('Wpisz treść komentarza.');
-        }
-        if (rate === 0) {
-            return setError('Wybierz ocenę.');
-        }
-        axios
-            .post('/add_comment/', { comment, rate, id })
-            .then(({ data }) => update(data.new_comment))
-            .catch(err => alert('Coś poszło nie tak...'));
-    };
-    return (
-        <AddCommentContent>
-            <Header>Oceń nasz produkt</Header>
-            <TextArea
-                onChange={e => setCommentHandler(e)}
-                value={comment}
-                maxLength="450"
-                placeholder="Wpisz komentarz."
-            />
-            <StyledRating
-                name="half-rating"
-                onChange={e => setRateHandler(e)}
-                value={rate}
-                precision={0.5}
-                size="large"
-            />
-            <Rate>{rate === 0 ? '' : rate}</Rate>
-            <ErrorMessage>{error}</ErrorMessage>
-            <CustomButton primary onClick={() => submitHandler()}>
+  const submitHandler = () => {
+    if (!auth.isAuthenticated) {
+      return alert('Aby dodać komentarz musisz się zalogować.');
+    }
+    if (comment === '') {
+      return setError('Wpisz treść komentarza.');
+    }
+    if (rate === 0) {
+      return setError('Wybierz ocenę.');
+    }
+    axios
+      .post('/add_comment/', { comment, rate, id })
+      .then(({ data }) => update(data.new_comment))
+      .catch(err => alert('Coś poszło nie tak...'));
+  };
+  return (
+    <AddCommentContent>
+      <Header>Oceń nasz produkt</Header>
+      <TextArea
+        onChange={e => setCommentHandler(e)}
+        value={comment}
+        maxLength="450"
+        placeholder="Wpisz komentarz."
+      />
+      <StyledRating
+        name="half-rating"
+        onChange={e => setRateHandler(e)}
+        value={rate}
+        precision={0.5}
+        size="large"
+      />
+      <Rate>{rate === 0 ? '' : rate}</Rate>
+      <ErrorMessage>{error}</ErrorMessage>
+      <CustomButton primary onClick={() => submitHandler()}>
         Dodaj komentarz
-            </CustomButton>
-        </AddCommentContent>
-    );
+      </CustomButton>
+    </AddCommentContent>
+  );
 };
 const mapStateToProps = state => {
   return {
-      auth: state.auth
+    auth: state.auth,
   };
 };
 
 export default connect(mapStateToProps)(AddComment);
-

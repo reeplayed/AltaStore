@@ -14,13 +14,13 @@ import NavItem from '../components/NavItem';
 import { StyledLink } from '../components/NavItem';
 import { logoutUser } from '../actions/authActions';
 import { clearCart } from '../actions/cartActions';
-import {baseURL} from '../axios';
+import { baseURL } from '../axios';
 
 const NavBarContainer = styled.nav`
   position: fixed;
   width: 100vw;
   background: ${({ theme, scroll }) =>
-        scroll > 100 ? theme.colors.primary : 'transparent'};
+    scroll > 100 ? theme.colors.primary : 'transparent'};
   padding: ${({ scroll }) => (scroll > 100 ? '1px' : '9px')} 50px;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ const LogoWrapper = styled.div`
   transition: transform 0.5s;
 
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabLand}) {
+      theme.breakpoints.tabLand}) {
     flex: 0;
   }
 `;
@@ -63,7 +63,7 @@ const IconWrapper = styled.button`
   position: relative;
 
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabLand}) {
+      theme.breakpoints.tabLand}) {
     display: ${({ hide }) => (hide ? 'none' : '')};
   }
   &:last-child {
@@ -86,7 +86,7 @@ const QuantityIcon = styled.span`
 const HamburgerWrapper = styled.div`
   display: none;
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabLand}) {
+      theme.breakpoints.tabLand}) {
     display: flex;
     flex: 1;
     position: relative;
@@ -108,13 +108,13 @@ const NavMenu = styled.ul`
   margin: 0 20px;
 
   @media only screen and (max-width: ${({ theme }) =>
-        theme.breakpoints.tabLand}) {
+      theme.breakpoints.tabLand}) {
     display: none;
   }
 `;
 const BackdropPose = {
-    enter: { background: 'rgba(0, 0, 0, 0.7)' },
-    exit: { background: 'rgba(0, 0, 0, 0.0)' }
+  enter: { background: 'rgba(0, 0, 0, 0.7)' },
+  exit: { background: 'rgba(0, 0, 0, 0.0)' },
 };
 const Backdrop = styled(posed.div(BackdropPose))`
   display: flex;
@@ -134,14 +134,14 @@ const Backdrop = styled(posed.div(BackdropPose))`
 `;
 
 const MobileMenu = posed.div({
-    enter: {
-        opacity: 1,
-        transition: { duration: 300 }
-    },
-    exit: {
-        opacity: 0,
-        transition: { duration: 300 }
-    }
+  enter: {
+    opacity: 1,
+    transition: { duration: 300 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 300 },
+  },
 });
 const MobileNavMenu = styled(MobileMenu)`
   padding: 20px 20px;
@@ -149,17 +149,17 @@ const MobileNavMenu = styled(MobileMenu)`
   background: ${({ theme: { colors } }) => colors.rgbaPrimary};
   border: 1px solid ${({ theme: { colors } }) => colors.lightGrey};
   border-radius: ${({ theme: { borderRadiuses } }) => borderRadiuses.xl};
-  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabPort}) {
     padding: 10px 5px;
   }
 `;
 const ProductsMenuPosed = posed.ul({
-    show: {
-        height: 'auto'
-    },
-    hide: {
-        height: 0
-    }
+  show: {
+    height: 'auto',
+  },
+  hide: {
+    height: 0,
+  },
 });
 const MobileSubMenu = styled(ProductsMenuPosed)`
   overflow: hidden;
@@ -267,202 +267,200 @@ const MobileProfileInfo = styled.div`
 `;
 
 const NavBar = props => {
-    const [scroll, setScroll] = useState(0);
-    const [subMobileMenuOpen, setSubMobileMenu] = useState(false);
-    const [isOpen, setOpen] = useState(false);
+  const [scroll, setScroll] = useState(0);
+  const [subMobileMenuOpen, setSubMobileMenu] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
-    const scrollHandler = _.throttle(() => setScroll(window.scrollY), 100);
+  const scrollHandler = _.throttle(() => setScroll(window.scrollY), 100);
 
-    useEffect(() => {
-        if (props.scroll) {
-            window.addEventListener('scroll', scrollHandler);
-            if (window.scrollY > 100) {
-                setScroll(window.scrollY);
-            }
+  useEffect(() => {
+    if (props.scroll) {
+      window.addEventListener('scroll', scrollHandler);
+      if (window.scrollY > 100) {
+        setScroll(window.scrollY);
+      }
 
-            return () => {
-                window.removeEventListener('scroll', scrollHandler);
-            };
-        } else {
-            setScroll(101);
-        }
-    }, []);
+      return () => {
+        window.removeEventListener('scroll', scrollHandler);
+      };
+    } else {
+      setScroll(101);
+    }
+  }, []);
 
-    const isOpenHandler = itemName => isOpen === itemName;
-    const setOpenHandler = itemName =>
-        setOpen(isOpen !== itemName ? itemName : false);
+  const isOpenHandler = itemName => isOpen === itemName;
+  const setOpenHandler = itemName =>
+    setOpen(isOpen !== itemName ? itemName : false);
 
-    const MobileMenu = (
-        <MobileNavMenu>
-            {props.auth.isAuthenticated && (
-                <>
-                <MobileProfileInfo>
-                <ProfileImage
-                     src={baseURL + props.auth.image}
-                />
+  const MobileMenu = (
+    <MobileNavMenu>
+      {props.auth.isAuthenticated && (
+        <>
+          <MobileProfileInfo>
+            <ProfileImage src={baseURL + props.auth.image} />
+            <NamesWrapper>
+              <ProfileName>{props.auth.username}</ProfileName>
+              <ProfileEmail>{props.auth.email}</ProfileEmail>
+            </NamesWrapper>
+          </MobileProfileInfo>
+          <Divider />
+        </>
+      )}
+
+      <NavItem title="Strona główna" />
+      <Divider />
+      <NavItem
+        title="Produkty"
+        click={() => setSubMobileMenu(!subMobileMenuOpen)}
+      />
+      <MobileSubMenu pose={subMobileMenuOpen ? 'show' : 'hide'}>
+        <Divider />
+        <MobileSubMenuItem>
+          <StyledLink to="/sofy">Sofy</StyledLink>
+        </MobileSubMenuItem>
+        <Divider />
+        <MobileSubMenuItem>
+          <StyledLink to="/fotele">Fotele</StyledLink>
+        </MobileSubMenuItem>
+        <Divider />
+        <MobileSubMenuItem>
+          <StyledLink to="/narozniki">Narożniki</StyledLink>
+        </MobileSubMenuItem>
+        <Divider />
+      </MobileSubMenu>
+      <Divider />
+      <NavItem title="Polityka prywatności" />
+      <Divider />
+      <NavItem title="Kontakt" />
+      {props.auth.isAuthenticated ? (
+        <>
+          <Divider />
+          <NavItem
+            title="Wyloguj"
+            click={() => {
+              props.logoutUser();
+              props.clearCart();
+              setOpen(false);
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <Divider />
+          <NavItem title="Zaloguj" to="/login" />
+          <Divider />
+          <NavItem title="Rejestracja" to="/register" />
+        </>
+      )}
+    </MobileNavMenu>
+  );
+
+  const SubMenu = (
+    <SubMenuContent pose={isOpenHandler('subMenu')}>
+      <SubItem>
+        <StyledLink to="/sofy">Sofy</StyledLink>
+      </SubItem>
+      <Divider />
+      <SubItem>
+        <StyledLink to="/fotele">Fotele</StyledLink>
+      </SubItem>
+      <Divider />
+      <SubItem>
+        <StyledLink to="/narozniki">Narożniki</StyledLink>
+      </SubItem>
+    </SubMenuContent>
+  );
+  return (
+    <NavBarContainer scroll={scroll}>
+      <PoseGroup>
+        {isOpenHandler('cart') && (
+          <Backdrop key="backdrop" cartOpen>
+            <Cart close={() => setOpen(false)} />
+          </Backdrop>
+        )}
+        {isOpenHandler('mobileMenu') && (
+          <Backdrop key="backdrop">{MobileMenu}</Backdrop>
+        )}
+      </PoseGroup>
+
+      <HamburgerWrapper>
+        <Hamburger
+          isOpen={isOpenHandler('mobileMenu')}
+          click={() => setOpenHandler('mobileMenu')}
+        />
+      </HamburgerWrapper>
+
+      <LogoWrapper scroll={scroll}>
+        <Link to="/">
+          <Logo />
+        </Link>
+      </LogoWrapper>
+
+      <NavMenu>
+        <NavItem title="Strona główna" to="/" />
+        <NavItem title="Produkty" click={() => setOpenHandler('subMenu')}>
+          {SubMenu}
+        </NavItem>
+        <NavItem title="Polityka prywatności" />
+        <NavItem title="Kontakt" />
+      </NavMenu>
+      <Wrapper>
+        <UserProfileContent pose={isOpenHandler('userInfo')}>
+          {props.auth.isAuthenticated ? (
+            <>
+              <ProfileInfo>
+                <ProfileImage src={baseURL + props.auth.image} />
                 <NamesWrapper>
-                    <ProfileName>{props.auth.username}</ProfileName>
-                    <ProfileEmail>{props.auth.email}</ProfileEmail>
+                  <ProfileName>{props.auth.username}</ProfileName>
+                  <ProfileEmail>{props.auth.email}</ProfileEmail>
                 </NamesWrapper>
-                </MobileProfileInfo>
-                <Divider />
-                </>
-            )}
-           
-            <NavItem title="Strona główna" />
-            <Divider />
-            <NavItem
-                title="Produkty"
-                click={() => setSubMobileMenu(!subMobileMenuOpen)}
-            />
-            <MobileSubMenu pose={subMobileMenuOpen ? 'show' : 'hide'}>
-                <Divider />
-                <MobileSubMenuItem>
-                    <StyledLink to='/sofy'>Sofy</StyledLink>
-                </MobileSubMenuItem>
-                <Divider />
-                <MobileSubMenuItem>
-                    <StyledLink to='/fotele'>Fotele</StyledLink>
-                </MobileSubMenuItem>
-                <Divider />
-                <MobileSubMenuItem>
-                    <StyledLink to='/narozniki'>Narożniki</StyledLink>
-                </MobileSubMenuItem>
-                <Divider />
-            </MobileSubMenu>
-            <Divider />
-            <NavItem title="Polityka prywatności" />
-            <Divider />
-            <NavItem title="Kontakt" />
-            {props.auth.isAuthenticated ? (
-                <>
-                <Divider />
-                <NavItem title="Wyloguj" 
-                    click={() => {
-                    props.logoutUser();
-                    props.clearCart();
-                    setOpen(false);
-                }}/>
-                </>
-            ):(
-                <>
-                <Divider />
-                <NavItem title="Zaloguj" to='/login'/>
-                <Divider />
-                <NavItem title="Rejestracja" to='/register'/>
-                </>
-            )}
-        </MobileNavMenu>
-    );
-
-    const SubMenu = (
-        <SubMenuContent pose={isOpenHandler('subMenu')}>
-            <SubItem>
-                <StyledLink to="/sofy">Sofy</StyledLink>
-            </SubItem>
-            <Divider />
-            <SubItem>
-                <StyledLink to="/fotele">Fotele</StyledLink>
-            </SubItem>
-            <Divider />
-            <SubItem>
-                <StyledLink to="/narozniki">Narożniki</StyledLink>
-            </SubItem>
-        </SubMenuContent>
-    );
-    return (
-        <NavBarContainer scroll={scroll}>
-            <PoseGroup>
-                {isOpenHandler('cart') && (
-                    <Backdrop key="backdrop" cartOpen>
-                        <Cart close={() => setOpen(false)} />
-                    </Backdrop>
-                )}
-                {isOpenHandler('mobileMenu') && (
-                    <Backdrop key="backdrop">{MobileMenu}</Backdrop>
-                )}
-            </PoseGroup>
-
-            <HamburgerWrapper>
-                <Hamburger
-                    isOpen={isOpenHandler('mobileMenu')}
-                    click={() => setOpenHandler('mobileMenu')}
-                />
-            </HamburgerWrapper>
-
-            <LogoWrapper scroll={scroll}>
-                <Link to="/">
-                    <Logo />
-                </Link>
-            </LogoWrapper>
-
-            <NavMenu>
-                <NavItem title="Strona główna" to='/'/>
-                <NavItem title="Produkty" click={() => setOpenHandler('subMenu')}>
-                    {SubMenu}
-                </NavItem>
-                <NavItem title="Polityka prywatności" />
-                <NavItem title="Kontakt" />
-            </NavMenu>
-            <Wrapper>
-                <UserProfileContent pose={isOpenHandler('userInfo')}>
-                    {props.auth.isAuthenticated ? (
-                        <>
-                            <ProfileInfo>
-                                <ProfileImage
-                                    src={baseURL + props.auth.image}
-                                />
-                                <NamesWrapper>
-                                    <ProfileName>{props.auth.username}</ProfileName>
-                                    <ProfileEmail>{props.auth.email}</ProfileEmail>
-                                </NamesWrapper>
-                            </ProfileInfo>
-                            <Divider />
-                            <ProfileMenuItem
-                                onClick={() => {
-                                    props.logoutUser();
-                                    props.clearCart();
-                                    setOpen(false);
-                                }}
-                            >
+              </ProfileInfo>
+              <Divider />
+              <ProfileMenuItem
+                onClick={() => {
+                  props.logoutUser();
+                  props.clearCart();
+                  setOpen(false);
+                }}
+              >
                 Wyloguj się
-                            </ProfileMenuItem>
-                        </>
-                    ) : (
-                        <>
-                            <ProfileMenuItem>
-                                <StyledLink to="/login">Logowanie</StyledLink>
-                            </ProfileMenuItem>
-                            <Divider />
-                            <ProfileMenuItem>
-                                <StyledLink to="/register">Rejestracja</StyledLink>
-                            </ProfileMenuItem>
-                        </>
-                    )}
-                </UserProfileContent>
-                <IconWrapper hide onClick={() => setOpenHandler('userInfo')}>
-                    <UserIcon />
-                </IconWrapper>
-                <IconWrapper onClick={() => setOpenHandler('cart')}>
-                    <CartIcon />
-                    {!_.isEmpty(props.cart.products) ? (
-                        <QuantityIcon>
-                            {_.sum(props.cart.products.map(prod => prod.quantity))}
-                        </QuantityIcon>
-                    ) : (
-                        ''
-                    )}
-                </IconWrapper>
-            </Wrapper>
-        </NavBarContainer>
-    );
+              </ProfileMenuItem>
+            </>
+          ) : (
+            <>
+              <ProfileMenuItem>
+                <StyledLink to="/login">Logowanie</StyledLink>
+              </ProfileMenuItem>
+              <Divider />
+              <ProfileMenuItem>
+                <StyledLink to="/register">Rejestracja</StyledLink>
+              </ProfileMenuItem>
+            </>
+          )}
+        </UserProfileContent>
+        <IconWrapper hide onClick={() => setOpenHandler('userInfo')}>
+          <UserIcon />
+        </IconWrapper>
+        <IconWrapper onClick={() => setOpenHandler('cart')}>
+          <CartIcon />
+          {!_.isEmpty(props.cart.products) ? (
+            <QuantityIcon>
+              {_.sum(props.cart.products.map(prod => prod.quantity))}
+            </QuantityIcon>
+          ) : (
+            ''
+          )}
+        </IconWrapper>
+      </Wrapper>
+    </NavBarContainer>
+  );
 };
 
 const mapStateToProps = state => {
-    return {
-        auth: state.auth,
-        cart: state.cart
-    };
+  return {
+    auth: state.auth,
+    cart: state.cart,
+  };
 };
 
 export default connect(mapStateToProps, { logoutUser, clearCart })(NavBar);

@@ -24,7 +24,7 @@ const RegistrationContent = styled.div`
   border-shadow: 5px 10px #888888;
   padding: 20px 40px;
 
-  @media (max-width:${({ theme })=>theme.breakpoints.tabPort}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabPort}) {
     padding: 10px 10px;
   }
 `;
@@ -58,140 +58,138 @@ const emailValidation = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(
 
 class Register extends Component {
   state = {
-      username: '',
-      email: '',
-      password: '',
-      confirm_password: '',
-      errors: {},
-      loading: false
+    username: '',
+    email: '',
+    password: '',
+    confirm_password: '',
+    errors: {},
+    loading: false,
   };
 
   onSubmitHandler = e => {
-      e.preventDefault();
-      const { username, email, password, confirm_password } = this.state;
+    e.preventDefault();
+    const { username, email, password, confirm_password } = this.state;
 
-      let errors = {};
-      if (username === '') {
-          errors.username = 'To pole jest puste.';
-      } else if (username.length < 8 || username.length > 16) {
-          errors.username = 'Nazwa uzytkownika powinna zawierać od 8 do 16 znaków';
-      } else if (/\W/.test(username)) {
-          errors.username =
+    let errors = {};
+    if (username === '') {
+      errors.username = 'To pole jest puste.';
+    } else if (username.length < 8 || username.length > 16) {
+      errors.username = 'Nazwa uzytkownika powinna zawierać od 8 do 16 znaków';
+    } else if (/\W/.test(username)) {
+      errors.username =
         'Nazwa użytkownika powinna zawierać tylko liery oraz cyfry';
-      }
-      if (email === '') {
-          errors.email = 'To pole jest puste.';
-      } else if (!emailValidation.test(email)) {
-          errors.email = 'Podany adres email jest nieprawidłowy';
-      }
-      if (password === '') {
-          errors.password = 'To pole jest puste.';
-      } else if (password.length < 8 || password.length > 32) {
-          errors.password = 'Hasło powinno zawierać od 8 do 16 znaków';
-      }
+    }
+    if (email === '') {
+      errors.email = 'To pole jest puste.';
+    } else if (!emailValidation.test(email)) {
+      errors.email = 'Podany adres email jest nieprawidłowy';
+    }
+    if (password === '') {
+      errors.password = 'To pole jest puste.';
+    } else if (password.length < 8 || password.length > 32) {
+      errors.password = 'Hasło powinno zawierać od 8 do 16 znaków';
+    }
 
-      if (confirm_password === '') {
-          errors.confirm_password = 'To pole jest puste.';
-      }
-      if (!_.isEmpty(errors)) {
-          return this.setState({ errors });
-      }
-      this.setState({loading: true});
-      axios
-          .post('/registration/', { username, password, email })
-          .then(res => {
-              console.log(res);
-              this.props.history.push('/')
-              alert('Pomyślnie utworzyłeś konto.')
-          })
-          .catch(({response}) => {
-            console.log(response);
-            if(response.status===400){
-                this.setState({errors: response.data.errors})
-            }
-            else{
-                alert('Coś poszło nie tak...')
-            }
-            
-          })
-          .finally(()=>{
-            this.setState({loading: false});
-          })
+    if (confirm_password === '') {
+      errors.confirm_password = 'To pole jest puste.';
+    }
+    if (!_.isEmpty(errors)) {
+      return this.setState({ errors });
+    }
+    this.setState({ loading: true });
+    axios
+      .post('/registration/', { username, password, email })
+      .then(res => {
+        console.log(res);
+        this.props.history.push('/');
+        alert('Pomyślnie utworzyłeś konto.');
+      })
+      .catch(({ response }) => {
+        console.log(response);
+        if (response.status === 400) {
+          this.setState({ errors: response.data.errors });
+        } else {
+          alert('Coś poszło nie tak...');
+        }
+      })
+      .finally(() => {
+        this.setState({ loading: false });
+      });
   };
 
   onChangeHandler = e => this.setState({ [e.target.id]: e.target.value });
 
-  render () {
-      return (
-          <>
-              <NavBar />
-              <Content margin="0 5px">
-                  <RegistrationContent>
-                      <Heading margin="20px auto" align="center" fsize="3rem">
+  render() {
+    return (
+      <>
+        <NavBar />
+        <Content margin="0 5px">
+          <RegistrationContent>
+            <Heading margin="20px auto" align="center" fsize="3rem">
               Zarejestruj
-                      </Heading>
+            </Heading>
 
-                      <form autoComplete="off">
-                          <Label>Username :</Label>
-                          <TextField
-                              type="text"
-                              id="username"
-                              placeholder="Username"
-                              value={this.state.username}
-                              onChange={e => this.onChangeHandler(e)}
-                          />
-                          <Error>{this.state.errors.username}</Error>
-                          <Label>E-mail :</Label>
-                          <TextField
-                              type="text"
-                              id="email"
-                              placeholder="E-mail"
-                              value={this.state.email}
-                              onChange={e => this.onChangeHandler(e)}
-                          />
-                          <Error>{this.state.errors.email}</Error>
-                          <Label>Password :</Label>
-                          <TextField
-                              type="password"
-                              id="password"
-                              placeholder="Password"
-                              value={this.state.password}
-                              onChange={e => this.onChangeHandler(e)}
-                          />
-                          <Error>{this.state.errors.password}</Error>
-                          <Label>Confirm Password :</Label>
-                          <TextField
-                              type="password"
-                              id="confirm_password"
-                              placeholder="Confirm Password"
-                              value={this.state.confirm_password}
-                              onChange={e => this.onChangeHandler(e)}
-                          />
-                          <Error>{this.state.errors.confirm_password}</Error>
-                          <LoginButton onClick={this.onSubmitHandler}>
-                            {this.state.loading ? (
-                                <CircularProgress size='1.5rem'/>
-                            ):(
-                                'Zarejestruj'
-                            )}
-                          </LoginButton>
-                      </form>
-                      <Link to="/login">Masz już konto ?</Link>
-                  </RegistrationContent>
-              </Content>
-          </>
-      );
+            <form autoComplete="off">
+              <Label>Username :</Label>
+              <TextField
+                type="text"
+                id="username"
+                placeholder="Username"
+                value={this.state.username}
+                onChange={e => this.onChangeHandler(e)}
+              />
+              <Error>{this.state.errors.username}</Error>
+              <Label>E-mail :</Label>
+              <TextField
+                type="text"
+                id="email"
+                placeholder="E-mail"
+                value={this.state.email}
+                onChange={e => this.onChangeHandler(e)}
+              />
+              <Error>{this.state.errors.email}</Error>
+              <Label>Password :</Label>
+              <TextField
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={e => this.onChangeHandler(e)}
+              />
+              <Error>{this.state.errors.password}</Error>
+              <Label>Confirm Password :</Label>
+              <TextField
+                type="password"
+                id="confirm_password"
+                placeholder="Confirm Password"
+                value={this.state.confirm_password}
+                onChange={e => this.onChangeHandler(e)}
+              />
+              <Error>{this.state.errors.confirm_password}</Error>
+              <LoginButton onClick={this.onSubmitHandler}>
+                {this.state.loading ? (
+                  <CircularProgress size="1.5rem" />
+                ) : (
+                  'Zarejestruj'
+                )}
+              </LoginButton>
+            </form>
+            <Link to="/login">Masz już konto ?</Link>
+          </RegistrationContent>
+        </Content>
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state, providerProps) => {
-    return {
-        auth: state.auth,
+  return {
+    auth: state.auth,
 
-        cart: state.cart
-    };
+    cart: state.cart,
+  };
 };
 
 export default connect(mapStateToProps, { setUser, setCart, addProduct })(
-    Register
+  Register
 );

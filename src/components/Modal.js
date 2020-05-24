@@ -18,8 +18,7 @@ const StyledButton = styled.button`
   color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  @media (max-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.tabPort}) {
+  @media (max-width: ${({ theme: { breakpoints } }) => breakpoints.tabPort}) {
     font-size: ${({ theme: { fontSizes } }) => fontSizes.xs};
     padding: 5px 10px;
   }
@@ -36,81 +35,80 @@ const ModalInfo = styled.p`
   font-size: 1.5rem;
   margin: 0 0 15px 0;
 `;
-function SimpleModal ({ button, auth, cart, clearCart }) {
-    const [info, setInfo] = useState();
-    const [open, setOpen] = React.useState(false);
+function SimpleModal({ button, auth, cart, clearCart }) {
+  const [info, setInfo] = useState();
+  const [open, setOpen] = React.useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-    const handleClose = () => {
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const submitHandler = () => {
+    const data = cart.products.map(prod => ({
+      id: prod.product.id,
+      quantity: prod.quantity,
+    }));
+    axios
+      .post('/buy_products/', { products: data })
+      .then(() => {
         setOpen(false);
-    };
+        clearCart();
+        alert('Pomyślnie zakupiłeś produkty.');
+      })
+      .catch(() => alert('Coś poszło nie tak...'));
+  };
 
-    const submitHandler = () => {
-        const data = cart.products.map(prod => ({
-            id: prod.product.id,
-            quantity: prod.quantity
-        }));
-        axios
-            .post('/buy_products/', { products: data })
-            .then(() => {
-                setOpen(false);
-                clearCart();
-                alert('Pomyślnie zakupiłeś produkty.')
-            })
-            .catch(()=>alert('Coś poszło nie tak...')
-            );
-    };
-
-    return (
-        <div>
-            <StyledButton type="button" onClick={handleOpen}>
+  return (
+    <div>
+      <StyledButton type="button" onClick={handleOpen}>
         Złóż zamówienie
-            </StyledButton>
-            <Modal
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                open={open}
-                onClose={handleClose}
-            >
-                <Content>
-                    <ModalInfo id="simple-modal-description">
-                        {auth.isAuthenticated ?
-                            'Jesteś pewnien, że chcesz kupić wybrane przedmioty ?' :
-                            'Aby dokonać zakupu musisz się zalogować.'}
-                    </ModalInfo>
-                    <div style={{ display: 'flex' }}>
-                        {auth.isAuthenticated ? (
-                            <>
-                                <CustomButton
-                                    onClick={() => submitHandler()}
-                                    style={{ 'margin-right': '10px' }}
-                                    primary
-                                >
+      </StyledButton>
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={handleClose}
+      >
+        <Content>
+          <ModalInfo id="simple-modal-description">
+            {auth.isAuthenticated
+              ? 'Jesteś pewnien, że chcesz kupić wybrane przedmioty ?'
+              : 'Aby dokonać zakupu musisz się zalogować.'}
+          </ModalInfo>
+          <div style={{ display: 'flex' }}>
+            {auth.isAuthenticated ? (
+              <>
+                <CustomButton
+                  onClick={() => submitHandler()}
+                  style={{ 'margin-right': '10px' }}
+                  primary
+                >
                   Tak
-                                </CustomButton>
-                                <CustomButton primary onClick={() => handleClose()}>
+                </CustomButton>
+                <CustomButton primary onClick={() => handleClose()}>
                   Nie
-                                </CustomButton>
-                            </>
-                        ) : (
-                            <StyledLink to='/login'>
-                                <CustomButton>Zaloguj</CustomButton>
-                            </StyledLink>
-                        )}
-                    </div>
-                </Content>
-            </Modal>
-        </div>
-    );
+                </CustomButton>
+              </>
+            ) : (
+              <StyledLink to="/login">
+                <CustomButton>Zaloguj</CustomButton>
+              </StyledLink>
+            )}
+          </div>
+        </Content>
+      </Modal>
+    </div>
+  );
 }
 const mapStateToProps = state => {
-    return {
-        cart: state.cart,
-        auth: state.auth
-    };
+  return {
+    cart: state.cart,
+    auth: state.auth,
+  };
 };
 
 export default connect(mapStateToProps, { clearCart })(SimpleModal);

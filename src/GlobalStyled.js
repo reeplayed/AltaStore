@@ -13,19 +13,19 @@ const GlobalStyles = createGlobalStyle`
     font-size: 62.5%;
     height: 100%;
     @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.tabPort}) {
+      breakpoints.tabPort}) {
       font-size: 67.5%;
     }
     @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.tabLand}) {
+      breakpoints.tabLand}) {
       font-size: 71%;
     }
     @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.desktop}) {
+      breakpoints.desktop}) {
       font-size: 75%;
     }
     @media only screen and (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.width2k}) {
+      breakpoints.width2k}) {
       font-size: 90.5%;
     }
   }

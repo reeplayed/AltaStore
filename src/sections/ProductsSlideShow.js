@@ -58,67 +58,73 @@ const ArrowInner = styled.div`
 `;
 
 const ProductsSlideShow = ({ title, type }) => {
-    const [prod, setProd] = useState([]);
-    const [index, setIndex] = useState(0);
-    const [screen, setScreen] = useState(1);
+  const [prod, setProd] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [screen, setScreen] = useState(1);
 
-    const setScreenWidth = ({ target: { innerWidth } }) =>
-        setScreen(
-            innerWidth > 1330 ? 4 : innerWidth > 900 ? 3 : innerWidth > 650 ? 2 : 1
-        );
-
-    useEffect(() => {
-        axios
-            .get('/api/prodlist/', { params: { filter: type } })
-            .then(res => setProd(res.data.results));
-            
-        setScreen(
-            window.innerWidth > 1330 ? 4 : window.innerWidth > 900 ? 3 : window.innerWidth > 650 ? 2 : 1
-        );
-        
-            window.addEventListener('resize', setScreenWidth);
-
-        return () => {
-            window.removeEventListener('resize', setScreenWidth);
-        };
-    }, []);
-
-    return (
-        <Content>
-            <Heading margin="3rem auto" align="center" fsize="3rem">
-                {title}
-            </Heading>
-            <Slider>
-                {index !== 0 && (
-                    <ArrowWrapper onClick={() => setIndex(index - 1)}>
-                        <ArrowInner>
-                            <Arrow rotate />
-                        </ArrowInner>
-                    </ArrowWrapper>
-                )}
-                {index !== 10 - screen && (
-                    <ArrowWrapper onClick={() => setIndex(index + 1)} right>
-                        <ArrowInner>
-                            <Arrow />
-                        </ArrowInner>
-                    </ArrowWrapper>
-                )}
-                <SliderWrapper index={index} screen={screen}>
-                    {prod.map(prod => (
-                        <ProductItem screen={screen}>
-                            <ProductCard
-                                title={prod.name}
-                                image={prod.card_image}
-                                price={prod.price}
-                                slug={prod.slug}
-                                rating={prod.average_rating}
-                            />
-                        </ProductItem>
-                    ))}
-                </SliderWrapper>
-            </Slider>
-        </Content>
+  const setScreenWidth = ({ target: { innerWidth } }) =>
+    setScreen(
+      innerWidth > 1330 ? 4 : innerWidth > 900 ? 3 : innerWidth > 650 ? 2 : 1
     );
+
+  useEffect(() => {
+    axios
+      .get('/api/prodlist/', { params: { filter: type } })
+      .then(res => setProd(res.data.results));
+
+    setScreen(
+      window.innerWidth > 1330
+        ? 4
+        : window.innerWidth > 900
+        ? 3
+        : window.innerWidth > 650
+        ? 2
+        : 1
+    );
+
+    window.addEventListener('resize', setScreenWidth);
+
+    return () => {
+      window.removeEventListener('resize', setScreenWidth);
+    };
+  }, []);
+
+  return (
+    <Content>
+      <Heading margin="3rem auto" align="center" fsize="3rem">
+        {title}
+      </Heading>
+      <Slider>
+        {index !== 0 && (
+          <ArrowWrapper onClick={() => setIndex(index - 1)}>
+            <ArrowInner>
+              <Arrow rotate />
+            </ArrowInner>
+          </ArrowWrapper>
+        )}
+        {index !== 10 - screen && (
+          <ArrowWrapper onClick={() => setIndex(index + 1)} right>
+            <ArrowInner>
+              <Arrow />
+            </ArrowInner>
+          </ArrowWrapper>
+        )}
+        <SliderWrapper index={index} screen={screen}>
+          {prod.map(prod => (
+            <ProductItem screen={screen}>
+              <ProductCard
+                title={prod.name}
+                image={prod.card_image}
+                price={prod.price}
+                slug={prod.slug}
+                rating={prod.average_rating}
+              />
+            </ProductItem>
+          ))}
+        </SliderWrapper>
+      </Slider>
+    </Content>
+  );
 };
 
 export default ProductsSlideShow;

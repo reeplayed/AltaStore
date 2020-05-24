@@ -9,17 +9,20 @@ import CustomButton from '../components/CustomButton';
 import Heading from '../typography/Heading';
 import Comment from '../components/Comment';
 import posed, { PoseGroup } from 'react-pose';
-import axios, {baseURL} from '../axios';
+import axios, { baseURL } from '../axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const MainContainer = styled.main`
   margin: 70px 15px 0 15px;
-  @media (max-width:${({ theme })=>theme.breakpoints.mobile}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabLand}) {
+    padding: 0 10px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin: 70px 0 0 0;
-   }
+  }
 `;
 const Container = styled.main`
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   align-items: strech;
 `;
@@ -35,13 +38,13 @@ const ProductSection = styled.section`
   }
 `;
 const ContentPose = posed.div({
-    enter: {
-        opacity: 1,
-        transition: { delay: 230 }
-    },
-    exit: {
-        opacity: 0
-    }
+  enter: {
+    opacity: 1,
+    transition: { delay: 230 },
+  },
+  exit: {
+    opacity: 0,
+  },
 });
 const Content = styled(ContentPose)`
   background: white;
@@ -56,14 +59,13 @@ const SlideShowContent = styled.section`
   max-width: 1000px;
   margin: 10px;
   flex: 1 1 50%;
-  @media (max-width:${({ theme })=>theme.breakpoints.tabLand}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabLand}) {
     flex: 1 1 100%;
-
+    margin: 10px 0;
   }
 `;
 const MainImgWrapper = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
   display: flex;
   margin: 0 auto;
   position: relative;
@@ -103,16 +105,19 @@ const StyledButton = styled.button`
   background: transparent;
 `;
 const DescriptionContent = styled.section`
-  
   flex: 1 1 40%;
   margin: 10px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabLand}) {
+    flex: 1 1 100%;
+    margin: 10px 0;
+  }
 `;
 const ProdName = styled.h2`
   font-size: 2.6rem;
   color: ${({ theme }) => theme.colors.primary};
   flex: 1;
   margin: 0 20px 0 0;
-  @media (max-width:${({ theme })=>theme.breakpoints.desktop}){
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     font-size: 2.2rem;
     margin: 0 10px 0 0;
   }
@@ -122,12 +127,14 @@ const NameAndRateWrapper = styled.div`
   display: flex;
   align-items: flex-start;
 `;
-const RateWrapper = styled.div``;
+const RateWrapper = styled.div`
+  //maring: 0;
+`;
+
 const Rate = styled.span`
   display: inline;
   font-size: 3rem;
   margin-left: 10px;
-
 `;
 const PriceWrapper = styled.h3`
   font-size: 1.7rem;
@@ -141,8 +148,8 @@ const Description = styled.div`
   font-size: 1.2rem;
   padding: 15px 0;
   overflow: hidden;
-  @media (max-width:${({ theme })=>theme.breakpoints.tabLand}){
-   padding: 5px 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tabLand}) {
+    padding: 5px 0;
   }
 `;
 const CommentsContainer = styled.div`
@@ -156,138 +163,136 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 const ProgressWrapper = styled.div`
-    margin-top: 120px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-top: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 class ProductDetail extends Component {
   state = {
-      product: {},
-      mainImg: '',
-      images: [],
-      comments: [],
-      comment_allow: false,
-      loading: true
+    product: {},
+    mainImg: '',
+    images: [],
+    comments: [],
+    comment_allow: false,
+    loading: true,
   };
 
-  constructor (props) {
-      super(props);
+  constructor(props) {
+    super(props);
 
-      const slug = this.props.match.params.slug;
+    const slug = this.props.match.params.slug;
 
-      axios.get('/product/' + slug)
-          .then(({ data }) => {
-              this.setState({
-                  product: data.product_info,
-                  mainImg: data.product_info.image,
-                  images: [
-                      data.product_info.image,
-                      data.product_info.image_2,
-                      data.product_info.image_3
-                  ],
-                  comments: data.comments,
-                  comment_allow: true
-              });
-          })
-          .catch(err => console.log(err))
-          .finally(()=>this.setState({loading: false}))
+    axios
+      .get('/product/' + slug)
+      .then(({ data }) => {
+        this.setState({
+          product: data.product_info,
+          mainImg: data.product_info.image,
+          images: [
+            data.product_info.image,
+            data.product_info.image_2,
+            data.product_info.image_3,
+          ],
+          comments: data.comments,
+          comment_allow: true,
+        });
+      })
+      .catch(err => console.log(err))
+      .finally(() => this.setState({ loading: false }));
   }
 
   updateComments = new_comment => {
-      this.setState({
-          ...this.state,
-          comments: [...this.state.comments, new_comment],
-          comment_allow: false
-      });
+    this.setState({
+      ...this.state,
+      comments: [...this.state.comments, new_comment],
+      comment_allow: false,
+    });
   };
 
-  render () {
-      return this.state.loading ? (
-        <ProgressWrapper>
-            <CircularProgress size='15rem'/>
-        </ProgressWrapper>
-      ) : (
-          <>
-              <NavBar />
-              <MainContainer>
-                <Container>
-                  <SlideShowContent>
-                      <MainImgWrapper>
-                          <MainImg src={baseURL + this.state.mainImg} />
-                      </MainImgWrapper>
+  render() {
+    return this.state.loading ? (
+      <ProgressWrapper>
+        <CircularProgress size="15rem" />
+      </ProgressWrapper>
+    ) : (
+      <>
+        <NavBar />
+        <MainContainer>
+          <Container>
+            <SlideShowContent>
+              <MainImgWrapper>
+                <MainImg src={baseURL + this.state.mainImg} />
+              </MainImgWrapper>
 
-                      <SlideShowNavigation>
-                          
-                          {this.state.images.map(img => (
-                              <SmallImg
-                                  onClick={() => this.setState({ mainImg: img })}
-                                  src={baseURL+img}
-                              />
-                          ))}
-                         
-                      </SlideShowNavigation>
-                  </SlideShowContent>
-                      <DescriptionContent>
-                        <Content padding='20px'>
-                                <NameAndRateWrapper>
-                                    <ProdName>{this.state.product.name}</ProdName>
-                                    <RateWrapper>
-                                        <StarSvg />
-                                        <Rate>{this.state.product.average_rating}</Rate>
-                                    </RateWrapper>
-                                </NameAndRateWrapper>
-                                <Wrapper>
-                                <CustomButton
-                                    onClick={() => this.props.addProduct(this.state.product)}
-                                >
-                                  Dodaj do koszyka
-                                </CustomButton>
-                                <PriceWrapper>{this.state.product.price} $</PriceWrapper>
-                                </Wrapper>
-                                
-                                <Description>{this.state.product.content}</Description>
-                        </Content>
-                      </DescriptionContent>
-                      </Container>
+              <SlideShowNavigation>
+                {this.state.images.map(img => (
+                  <SmallImg
+                    onClick={() => this.setState({ mainImg: img })}
+                    src={baseURL + img}
+                  />
+                ))}
+              </SlideShowNavigation>
+            </SlideShowContent>
+            <DescriptionContent>
+              <Content padding="20px">
+                <NameAndRateWrapper>
+                  <ProdName>{this.state.product.name}</ProdName>
+                  <RateWrapper>
+                    <StarSvg />
+                    <Rate>{this.state.product.average_rating}</Rate>
+                  </RateWrapper>
+                </NameAndRateWrapper>
+                <Wrapper>
+                  <CustomButton
+                    onClick={() => this.props.addProduct(this.state.product)}
+                  >
+                    Dodaj do koszyka
+                  </CustomButton>
+                  <PriceWrapper>{this.state.product.price} $</PriceWrapper>
+                </Wrapper>
 
-                  {this.state.comment_allow && (
-                      <AddComment
-                          update={this.updateComments}
-                          id={this.state.product.id}
-                      />
-                  )}
-                  <Content margin="10px 0px " padding="20px">
-                      <Heading align="center" fsize="2rem">
+                <Description>{this.state.product.content}</Description>
+              </Content>
+            </DescriptionContent>
+          </Container>
+
+          {this.state.comment_allow && (
+            <AddComment
+              update={this.updateComments}
+              id={this.state.product.id}
+            />
+          )}
+          <Content margin="10px 0" padding="20px">
+            <Heading align="center" fsize="2rem">
               Komentarze
-                      </Heading>
-                  </Content>
-                  <CommentsContainer>
-                      <PoseGroup>
-                          {this.state.comments.map(comm => (
-                              <Content key={comm.id} margin="5px 0" padding="10px">
-                                  <Comment
-                                      profile_img={comm.author.profile_image}
-                                      username={comm.author.username}
-                                      comment={comm.content}
-                                      rate={comm.rating}
-                                  />
-                              </Content>
-                          ))}
-                      </PoseGroup>
-                  </CommentsContainer>
-              </MainContainer>
-
-          </>
-      );
+            </Heading>
+          </Content>
+          <CommentsContainer>
+            <PoseGroup>
+              {this.state.comments.map(comm => (
+                <Content key={comm.id} margin="5px 0" padding="10px">
+                  <Comment
+                    profile_img={comm.author.profile_image}
+                    username={comm.author.username}
+                    comment={comm.content}
+                    rate={comm.rating}
+                  />
+                </Content>
+              ))}
+            </PoseGroup>
+          </CommentsContainer>
+        </MainContainer>
+      </>
+    );
   }
 }
 
 const mapStateToProps = state => {
-    return {
-        auth: state.auth
-    };
+  return {
+    auth: state.auth,
+  };
 };
 
 export default connect(mapStateToProps, { addProduct })(ProductDetail);

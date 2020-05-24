@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Rating from '@material-ui/lab/Rating';
-import {baseURL} from '../axios';
+import { baseURL } from '../axios';
 
 const CommentContent = styled.div`
   display: flex;
@@ -29,28 +29,28 @@ const CommentText = styled.div`
 `;
 
 const Comment = ({ profile_img, username, comment, rate }) => {
-    return (
-        <>
-            <CommentContent>
-                <ImgWrapper>
-                    <ProfileImg src={baseURL + profile_img} />
-                </ImgWrapper>
-                <CommentInfo>
-                    <Username>
-                        {username}{' '}
-                        <Rating
-                            name="half-rating-read"
-                            value={rate}
-                            precision={0.5}
-                            size="small"
-                            readOnly
-                        />
-                    </Username>
-                    <CommentText>{comment}</CommentText>
-                </CommentInfo>
-            </CommentContent>
-        </>
-    );
+  return (
+    <>
+      <CommentContent>
+        <ImgWrapper>
+          <ProfileImg src={baseURL + profile_img} />
+        </ImgWrapper>
+        <CommentInfo>
+          <Username>
+            {username}{' '}
+            <Rating
+              name="half-rating-read"
+              value={rate}
+              precision={0.5}
+              size="small"
+              readOnly
+            />
+          </Username>
+          <CommentText>{comment}</CommentText>
+        </CommentInfo>
+      </CommentContent>
+    </>
+  );
 };
 
 export default Comment;
